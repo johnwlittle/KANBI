@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanbi</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+    /* --------- Core Variables --------- */
+    :root {
+      /* Color Scheme */
+      --primary: #5c7ba6;
+      --primary-light: #f7f9fc;
+      --primary-dark: #3b4c65;
+      
+      --secondary: #7d8ea5;
+      --secondary-light: #edf0f5;
+      --secondary-dark: #6a7a94;
+      
+      --accent: #a3b4c6;
+      --accent-light: #e2e5eb;
+      --accent-hover: #8ca4bb;
+      
+      --white: #ffffff;
+      --gray-100: #f8f9fa;
+      --gray-200: #f0f2f7;
+      --gray-300: #e2e5eb;
+      --gray-400: #c2cad6;
+      
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      --focus-shadow: 0 0 0 2px rgba(92, 123, 166, 0.15);
+    }
+
+    /* --------- Base Styles --------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--primary-dark);
+      background-color: var(--gray-100);
+      background-image: linear-gradient(135deg, #f5f6fa 0%, #e6ecf3 100%);
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* --------- Logo Styling --------- */
+    .logo h1 {
+      text-align: left;
+      margin-bottom: 0;
+      padding: 0;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo h1 .letter-a,
+    .logo h1 .letter-i {
+      color: #87CEEB;
+    }
+
+    /* --------- Header Layout --------- */
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ffffff;
+      padding: 15px 20px;
+      border-radius: 6px;
+      border: 1px solid #e1e4eb;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      margin-right: 30px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .file-info {
+      color: var(--accent-hover);
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    /* --------- Button Styles --------- */
+    .btn {
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-transform: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+    }
+
+    /* Task Button - Salmon Pink */
+    .add-task-btn {
+      background-color: #FFE4E1;
+      color: #8B5F5F;
+    }
+
+    .add-task-btn:hover {
+      background-color: #FFD4D4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Column Button - Mint Green */
+    .add-column-btn {
+      background-color: #E0F2E9;
+      color: #2E7D50;
+    }
+
+    .add-column-btn:hover {
+      background-color: #C8EAD6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Import Button - Lavender */
+    .import-btn {
+      background-color: #E6E6FA;
+      color: #6A5ACD;
+    }
+
+    .import-btn:hover {
+      background-color: #D8D0F5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Export Button - Sky Blue */
+    .export-btn {
+      background-color: #E1F5FE;
+      color: #2196F3;
+    }
+
+    .export-btn:hover {
+      background-color: #B3E5FC;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Button Ripple Effect */
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .btn:active::after {
+      width: 200%;
+      height: 200%;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* --------- Status Messages --------- */
+    .status-msg {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background-color: var(--white);
+      color: var(--primary-dark);
+      border-radius: 4px;
+      border-left: 3px solid var(--secondary);
+      box-shadow: var(--card-shadow);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .error-msg {
+      border-left: 3px solid #a58b8b;
+    }
+
+    /* --------- Boards Container --------- */
+    .boards-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 15px;
+      min-height: 400px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--gray-200);
+      background-color: var(--white);
+      border-radius: 6px;
+      border: 1px solid var(--gray-300);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .boards-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .boards-container::-webkit-scrollbar-track {
+      background: var(--gray-200);
+      border-radius: 10px;
+    }
+
+    .boards-container::-webkit-scrollbar-thumb {
+      background-color: var(--accent);
+      border-radius: 10px;
+    }
+
+    /* --------- Board Columns --------- */
+    .board {
+      min-width: 260px;
+      max-width: 260px;
+      background-color: var(--gray-100);
+      border-radius: 4px;
+      padding: 0 0 15px 0;
+      height: fit-content;
+      transition: all 0.2s;
+      cursor: grab;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--gray-300);
+    }
+
+    .board.dragging {
+      opacity: 0.8;
+      transform: scale(0.98);
+    }
+
+    .board-header {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-bottom: 1px solid var(--gray-300);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .board-title {
+      margin: 0;
+      cursor: pointer;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 5px;
+      color: var(--primary-dark);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .task-count {
+      background-color: var(--white);
+      color: var(--primary);
+      border-radius: 3px;
+      min-width: 26px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-left: 5px;
+      font-weight: 500;
+      border: 1px solid var(--gray-300);
+    }
+
+    .column-actions {
+      display: flex;
+      margin-left: 5px;
+    }
+
+    .edit-column-btn, 
+    .delete-column-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 3px;
+      opacity: 0.7;
+      transition: all 0.2s;
+      color: var(--accent-hover);
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .edit-column-btn:hover, 
+    .delete-column-btn:hover {
+      opacity: 1;
+      color: var(--primary-dark);
+      background-color: var(--gray-200);
+    }
+
+    .task-list {
+      min-height: 100px;
+      padding: 0 10px;
+    }
+
+    /* --------- Task Items --------- */
+    .task-item {
+      background-color: var(--white);
+      padding: 14px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      box-shadow: var(--card-shadow);
+      cursor: grab;
+      transition: all 0.2s;
+      position: relative;
+      border-left: 3px solid var(--primary);
+    }
+
+    #column-progress .task-item {
+      border-left-color: var(--secondary);
+    }
+
+    #column-done .task-item {
+      border-left-color: var(--accent);
+    }
+
+    .task-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .task-item:hover .task-order-actions {
+      opacity: 1;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .task-title {
+      font-weight: 500;
+      word-break: break-word;
+      color: var(--primary-dark);
+      font-size: 14px;
+    }
+
+    .task-content {
+      word-break: break-word;
+      font-size: 13px;
+      margin-bottom: 12px;
+      color: var(--secondary-dark);
+    }
+
+    .task-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--accent-hover);
+      border-top: 1px solid var(--gray-200);
+      padding-top: 10px;
+    }
+
+    .task-due-date {
+      display: inline-block;
+    }
+
+    .task-due-date.overdue {
+      color: #a58b8b;
+      font-weight: 500;
+    }
+
+    .task-due-date.due-today {
+      color: #a59d8b;
+      font-weight: 500;
+    }
+
+    .task-order-actions {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      display: flex;
+      gap: 5px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .move-up-btn, 
+    .move-down-btn {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 1px solid var(--gray-300);
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 10px;
+    }
+
+    #column-progress .move-up-btn, 
+    #column-progress .move-down-btn {
+      color: var(--secondary);
+    }
+
+    #column-done .move-up-btn, 
+    #column-done .move-down-btn {
+      color: var(--accent);
+    }
+
+    .move-up-btn:hover, 
+    .move-down-btn:hover {
+      background-color: var(--gray-200);
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .edit-btn, 
+    .delete-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px;
+      border-radius: 2px;
+      color: var(--accent-hover);
+      transition: all 0.2s;
+    }
+
+    .edit-btn:hover {
+      color: var(--primary);
+    }
+
+    .delete-btn:hover {
+      color: #a58b8b;
+    }
+
+    /* --------- Modals --------- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      margin: 10% auto;
+      padding: 25px 30px;
+      border-radius: 6px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--gray-300);
+    }
+
+    .modal-content h2 {
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .close {
+      color: var(--accent-hover);
+      float: right;
+      font-size: 28px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 0.8;
+    }
+
+    .close:hover {
+      color: var(--primary-dark);
+    }
+
+    .hide {
+      display: none;
+    }
+
+    /* --------- Forms --------- */
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--secondary-dark);
+      font-size: 14px;
+    }
+
+    input, 
+    textarea, 
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      background-color: var(--white);
+      color: var(--primary-dark);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    input:focus, 
+    textarea:focus, 
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--focus-shadow);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .color-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .color-option:hover {
+      transform: scale(1.1);
+    }
+
+    .color-option.selected {
+      border: 2px solid var(--primary);
+      transform: scale(1.1);
+    }
+
+    .submit-btn {
+      padding: 10px 22px;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.3s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-dark);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    /* --------- Drag and Drop --------- */
+    .dragging {
+      opacity: 0.5;
+    }
+
+    /* --------- File Input --------- */
+    .file-input-container {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .file-input {
+      position: absolute;
+      font-size: 100px;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    #file-name {
+      margin-top: 5px;
+      font-size: 13px;
+      color: var(--secondary-dark);
+    }
+
+    /* --------- Add Column Button --------- */
+    .add-column-btn-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 260px;
+      max-width: 260px;
+      height: 150px;
+      background-color: var(--primary-light);
+      border: 1px dashed var(--gray-400);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--accent-hover);
+    }
+
+    .add-column-btn-container:hover {
+      background-color: var(--white);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .add-column-btn-container::before {
+      content: "+";
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--accent-hover);
+      display: block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: var(--white);
+      border: 1px solid var(--gray-300);
+    }
+
+    /* --------- Footer --------- */
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      color: var(--accent-hover);
+      font-size: 11px;
+      border-top: 1px solid var(--gray-300);
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--primary-dark);
+    }
+
+    #current-file {
+      color: var(--accent-hover);
+      font-size: 12px;
+    }
+
+    /* --------- Responsive Styles --------- */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .controls {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .file-info {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+      
+      .boards-container {
+        flex-direction: column;
+        overflow-x: visible;
+      }
+      
+      .board, 
+      .add-column-btn-container {
+        min-width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      .btn {
+        flex-grow: 1;
+        max-width: 200px;
+        margin: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <div class="logo">
+      <h1>K<span class="letter-a">A</span>NB<span class="letter-i">I</span></h1>
+    </div>
+    
+    <div class="controls">
+      <button class="btn add-task-btn" id="add-task-btn">+ Task</button>
+      <button class="btn add-column-btn" id="add-column-modal-btn">+ Column</button>
+      <div class="file-input-container">
+        <button class="btn import-btn">Import</button>
+        <input type="file" id="import-file" class="file-input" accept=".json">
+      </div>
+      <button class="btn export-btn" id="export-btn">Export</button>
+      <button class="btn help-btn" id="help-btn" onclick="window.location.href='kanbi-help.html'">Help</button>
+      <div class="file-info" id="current-file">Current file: kanbi-data.json</div>
+    </div>
+  </div>
+  
+  <div class="boards-container" id="boards-container">
+    <!-- Boards will be generated here -->
+  </div>
+  
+  <!-- Task Modal -->
+  <div id="task-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="task-modal">&times;</span>
+      <h2 id="task-modal-title">Add New Task</h2>
+      <form id="task-form">
+        <input type="hidden" id="task-id" value="">
+        <input type="hidden" id="task-order" value="">
+        <label for="task-column">Column:</label>
+        <select id="task-column" required></select>
+        <label for="task-title">Title:</label>
+        <input type="text" id="task-title" required>
+        <label for="task-description">Description:</label>
+        <textarea id="task-description"></textarea>
+        <label for="task-due-date">Due Date:</label>
+        <input type="date" id="task-due-date">
+        <button type="submit" class="submit-btn">Save Task</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Column Modal (Preset Colors Only) -->
+  <div id="column-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="column-modal">&times;</span>
+      <h2 id="column-modal-title">Add New Column</h2>
+      <form id="column-form">
+        <input type="hidden" id="column-id" value="">
+        <input type="hidden" id="column-order" value="">
+        <label for="column-title">Column Title:</label>
+        <input type="text" id="column-title" required>
+        <label>Column Color:</label>
+        <div class="color-picker" id="column-color-picker">
+          <div class="color-option selected" data-color="#ECECEC" style="background-color: #ECECEC;"></div>
+          <div class="color-option" data-color="#FADADD" style="background-color: #FADADD;"></div>
+          <div class="color-option" data-color="#D0F0C0" style="background-color: #D0F0C0;"></div>
+          <div class="color-option" data-color="#E1F5FE" style="background-color: #E1F5FE;"></div>
+          <div class="color-option" data-color="#FFECB3" style="background-color: #FFECB3;"></div>
+          <div class="color-option" data-color="#E6E6FA" style="background-color: #E6E6FA;"></div>
+          <div class="color-option" data-color="#FFDAB9" style="background-color: #FFDAB9;"></div>
+          <div class="color-option" data-color="#F0FFF0" style="background-color: #F0FFF0;"></div>
+          <div class="color-option" data-color="#FFF0F5" style="background-color: #FFF0F5;"></div>
+        </div>
+        <button type="submit" class="submit-btn">Save Column</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Status Message -->
+  <div id="status-msg" class="status-msg"></div>
+  
+  <!-- Footer -->
+  <footer>
+    <div id="current-file" class="file-name"></div>
+    Kanbi by John W. Little &copy; 2025 • Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
+  </footer>
+  
+  <script>
+    /**
+     * KANBI - A simple Kanban board application
+     * Allows users to create tasks, organize them in columns,
+     * and save/load board data using localStorage and JSON export/import.
+     */
+    
+    // --- Core Data Structures and State Management ---
+    let boardData = {
+      columns: [],
+      tasks: []
+    };
+    
+    let currentFilename = 'kanbi-data.json';
+    let autoSave = true;
+    
+    // --- Utility Functions ---
+    
+    /**
+     * Generates a unique ID with a prefix
+     * @param {string} prefix - Prefix to add to the ID
+     * @return {string} The generated unique ID
+     */
+    function generateId(prefix) {
+      return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+    }
+    
+    /**
+     * Displays a status message to the user
+     * @param {string} message - Message to display
+     * @param {boolean} isError - Whether this is an error message
+     */
+    function showStatusMessage(message, isError = false) {
+      const statusMsg = document.getElementById('status-msg');
+      statusMsg.textContent = message;
+      
+      if (isError) {
+        statusMsg.classList.add('error-msg');
+      } else {
+        statusMsg.classList.remove('error-msg');
+      }
+      
+      statusMsg.style.opacity = '1';
+      setTimeout(() => {
+        statusMsg.style.opacity = '0';
+      }, 3000);
+    }
+    
+    /**
+     * Updates the current filename display
+     */
+    function updateCurrentFilename() {
+      document.getElementById('current-file').textContent = `Current file: ${currentFilename}`;
+    }
+    
+    // --- Data Management Functions ---
+    
+    /**
+     * Initializes board with default columns if no data exists
+     */
+    function initializeDefaultBoard() {
+      boardData = {
+        columns: [
+          { id: 'column-todo', title: 'Todo', color: '#ECECEC', order: 0 },
+          { id: 'column-progress', title: 'In Progress', color: '#E1F5FE', order: 1 },
+          { id: 'column-done', title: 'Done', color: '#D0F0C0', order: 2 }
+        ],
+        tasks: []
+      };
+    }
+    
+    /**
+     * Loads board data from localStorage
+     */
+    function loadBoardData() {
+      const savedData = localStorage.getItem('kanbi-board-data');
+      
+      if (savedData) {
+        try {
+          boardData = JSON.parse(savedData);
+          
+          // Ensure tasks have order property
+          boardData.tasks.forEach((task, index) => {
+            if (task.order === undefined) {
+              task.order = index;
+            }
+          });
+          
+          // Ensure columns have color and order properties
+          boardData.columns.forEach((column, index) => {
+            if (!column.color) {
+              column.color = '#1A1B26';
+            }
+            if (column.order === undefined) {
+              column.order = index;
+            }
+          });
+        } catch (e) {
+          console.error('Error parsing saved data:', e);
+          initializeDefaultBoard();
+        }
+      } else {
+        initializeDefaultBoard();
+      }
+      
+      renderBoard();
+      updateCurrentFilename();
+    }
+    
+    /**
+     * Saves board data to localStorage and triggers export if autoSave is true
+     */
+    function saveBoardData() {
+      localStorage.setItem('kanbi-board-data', JSON.stringify(boardData));
+      showStatusMessage('Board saved successfully');
+      
+      if (autoSave) {
+        exportBoardData(true);
+      }
+    }
+    
+    // --- Export and Import Functions ---
+    
+/**
+ * Exports the board data as a JSON file
+ * @param {boolean} silent - Whether to trigger the download silently
+ * @return {string} The filename of the exported file
+ */
+function exportBoardData(silent = false) {
+  // Get current date in a more readable format
+  const now = new Date();
+  
+  // Format date as YYYY-MM-DD
+  const formattedDate = `${now.getFullYear()}-${(now.getMonth()+1)
+    .toString().padStart(2, '0')}-${now.getDate()
+    .toString().padStart(2, '0')}`;
+  
+  // Also include hours and minutes for differentiation
+  const formattedTime = `${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+  
+  // Create filename with both date and time in a clean format
+  const filename = `KANBI_Board_${formattedDate}_${formattedTime}.json`;
+  currentFilename = filename;
+  updateCurrentFilename();
+  
+  const dataStr = JSON.stringify(boardData, null, 2);
+  const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+  
+  let linkElement = document.getElementById('export-link');
+  if (!linkElement) {
+    linkElement = document.createElement('a');
+    linkElement.id = 'export-link';
+    linkElement.style.display = 'none';
+    document.body.appendChild(linkElement);
+  }
+  
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', filename);
+  linkElement.click();
+  
+  showStatusMessage(`Board exported as "${filename}"`);
+  return filename;
+}
+    
+    /**
+     * Imports board data from a JSON file
+     * @param {Event} e - The file input change event
+     */
+    function importBoard(e) {
+      const file = e.target.files[0];
+      
+      if (file) {
+        currentFilename = file.name;
+        updateCurrentFilename();
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const importedData = JSON.parse(event.target.result);
+            
+            if (!importedData) {
+              throw new Error('Invalid JSON data');
+            }
+            
+            if (!importedData.columns) {
+              throw new Error('Missing columns data');
+            }
+            
+            if (!importedData.tasks) {
+              importedData.tasks = [];
+            }
+            
+            if (!Array.isArray(importedData.columns)) {
+              throw new Error('Columns must be an array');
+            }
+            
+            if (!Array.isArray(importedData.tasks)) {
+              throw new Error('Tasks must be an array');
+            }
+            
+            // Ensure proper order and color values
+            importedData.tasks.forEach((task, index) => {
+              if (task.order === undefined) {
+                task.order = index;
+              }
+            });
+            
+            importedData.columns.forEach((column, index) => {
+              if (!column.color) {
+                column.color = '#1A1B26';
+              }
+              if (column.order === undefined) {
+                column.order = index;
+              }
+            });
+            
+            boardData = importedData;
+            saveBoardData();
+            renderBoard();
+            showStatusMessage('Board imported successfully');
+          } catch (e) {
+            console.error('Error parsing imported file:', e);
+            showStatusMessage('Error: ' + e.message, true);
+          }
+        };
+        
+        reader.readAsText(file);
+      }
+    }
+    
+    // --- UI Rendering Functions ---
+    
+    /**
+     * Renders the entire board UI with columns and tasks
+     */
+    function renderBoard() {
+      const boardsContainer = document.getElementById('boards-container');
+      boardsContainer.innerHTML = '';
+      
+      // Sort columns by order
+      const sortedColumns = [...boardData.columns].sort((a, b) => a.order - b.order);
+      
+      // Create column elements
+      sortedColumns.forEach(column => {
+        const columnElement = createColumnElement(column);
+        boardsContainer.appendChild(columnElement);
+      });
+      
+      // Add "Add Column" button
+      const addColumnBtnContainer = document.createElement('div');
+      addColumnBtnContainer.classList.add('add-column-btn-container');
+      addColumnBtnContainer.innerHTML = '<span>+ Add Column</span>';
+      addColumnBtnContainer.addEventListener('click', openColumnModal);
+      boardsContainer.appendChild(addColumnBtnContainer);
+      
+      // Populate tasks for each column
+      for (const column of boardData.columns) {
+        const tasksInColumn = boardData.tasks
+          .filter(task => task.columnId === column.id)
+          .sort((a, b) => a.order - b.order);
+        
+        // Ensure task orders are consecutive
+        tasksInColumn.forEach((task, index) => {
+          task.order = index;
+        });
+        
+        const columnTaskList = document.getElementById(`tasks-${column.id}`);
+        
+        if (columnTaskList) {
+          tasksInColumn.forEach(task => {
+            const taskElement = createTaskElement(task, tasksInColumn.length);
+            columnTaskList.appendChild(taskElement);
+          });
+        }
+      }
+      
+      updateTaskCounts();
+    }
+    
+    /**
+     * Creates a DOM element for a column
+     * @param {Object} column - The column data
+     * @return {HTMLElement} The column element
+     */
+    function createColumnElement(column) {
+      const columnElement = document.createElement('div');
+      columnElement.classList.add('board');
+      columnElement.id = column.id;
+      columnElement.style.backgroundColor = column.color;
+      columnElement.setAttribute('draggable', 'true');
+      columnElement.dataset.order = column.order;
+      
+      columnElement.innerHTML = `
+        <div class="board-header">
+          <h3 class="board-title" title="${column.title}" data-id="${column.id}">${column.title}</h3>
+          <div class="task-count" id="count-${column.id}">0</div>
+          <div class="column-actions">
+            <button class="edit-column-btn" data-id="${column.id}">✏️</button>
+            <button class="delete-column-btn" data-id="${column.id}">🗑️</button>
+          </div>
+        </div>
+        <div class="task-list" id="tasks-${column.id}" data-column-id="${column.id}"></div>
+      `;
+      
+      // Set up event listeners for column actions
+      columnElement.querySelector('.edit-column-btn').addEventListener('click', function() {
+        editColumn(column.id);
+      });
+      
+      columnElement.querySelector('.delete-column-btn').addEventListener('click', function() {
+        deleteColumn(column.id);
+      });
+      
+      const taskList = columnElement.querySelector('.task-list');
+      
+      // Set up drag and drop for tasks within columns
+      taskList.addEventListener('dragover', function(e) {
+        e.preventDefault();
+      });
+      
+      taskList.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const taskId = e.dataTransfer.getData('text/plain');
+        const taskElement = document.getElementById(taskId);
+        
+        if (taskElement && this.appendChild) {
+          this.appendChild(taskElement);
+          const newColumnId = this.dataset.columnId;
+          const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
+          
+          if (taskIndex !== -1) {
+            const oldColumnId = boardData.tasks[taskIndex].columnId;
+            
+            if (oldColumnId !== newColumnId) {
+              const maxOrder = boardData.tasks
+                .filter(task => task.columnId === newColumnId)
+                .reduce((max, task) => Math.max(max, task.order), -1);
+                
+              boardData.tasks[taskIndex].columnId = newColumnId;
+              boardData.tasks[taskIndex].order = maxOrder + 1;
+              saveBoardData();
+              renderBoard();
+            }
+          }
+        }
+      });
+      
+      // Set up drag and drop for reordering columns
+      columnElement.addEventListener('dragstart', function(e) {
+        if (e.target === this) {
+          e.dataTransfer.setData('column-id', column.id);
+          this.classList.add('dragging');
+        }
+      });
+      
+      columnElement.addEventListener('dragend', function() {
+        this.classList.remove('dragging');
+      });
+      
+      columnElement.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      
+      columnElement.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const taskId = e.dataTransfer.getData('text/plain');
+        if (taskId) {
+          return;
+        }
+        
+        const draggedColumnId = e.dataTransfer.getData('column-id');
+        if (draggedColumnId && draggedColumnId !== column.id) {
+          const draggedColumn = boardData.columns.find(col => col.id === draggedColumnId);
+          const targetColumn = boardData.columns.find(col => col.id === column.id);
+          
+          if (draggedColumn && targetColumn) {
+            const tempOrder = draggedColumn.order;
+            draggedColumn.order = targetColumn.order;
+            targetColumn.order = tempOrder;
+            saveBoardData();
+            renderBoard();
+          }
+        }
+      });
+      
+      return columnElement;
+    }
+    
+    /**
+     * Creates a DOM element for a task
+     * @param {Object} task - The task data
+     * @param {number} columnTaskCount - Total number of tasks in the column
+     * @return {HTMLElement} The task element
+     */
+    function createTaskElement(task, columnTaskCount) {
+      const taskElement = document.createElement('div');
+      taskElement.classList.add('task-item');
+      taskElement.setAttribute('draggable', 'true');
+      taskElement.id = task.id;
+      
+      // Format due date for display
+      let dueDateDisplay = '';
+      let isDueToday = false;
+      let isOverdue = false;
+      
+      if (task.dueDate) {
+        const dueDate = new Date(task.dueDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        dueDateDisplay = dueDate.toLocaleDateString(undefined, options);
+        
+        isDueToday = dueDate.getTime() === today.getTime();
+        isOverdue = dueDate < today;
+      }
+      
+      const dueDateClass = isOverdue ? 'overdue' : (isDueToday ? 'due-today' : '');
+      const dueDatePrefix = isOverdue ? '⚠️ Due: ' : (isDueToday ? '⏰ Due Today: ' : 'Due: ');
+      
+      // Build task HTML
+      taskElement.innerHTML = `
+        <div class="task-header">
+          <div class="task-title">${task.title}</div>
+          <div class="task-actions">
+            <button class="edit-btn" data-id="${task.id}">✏️</button>
+            <button class="delete-btn" data-id="${task.id}">🗑️</button>
+          </div>
+        </div>
+        <div class="task-content">${task.description}</div>
+        <div class="task-footer">
+          ${task.dueDate ? `<span class="task-due-date ${dueDateClass}">${dueDatePrefix}${dueDateDisplay}</span>` : ''}
+          <div class="task-order-actions">
+            ${task.order > 0 ? `<button class="move-up-btn" data-id="${task.id}" title="Move Up">▲</button>` : ''}
+            ${task.order < columnTaskCount - 1 ? `<button class="move-down-btn" data-id="${task.id}" title="Move Down">▼</button>` : ''}
+          </div>
+        </div>
+      `;
+      
+      // Set up drag and drop for tasks
+      taskElement.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', task.id);
+        this.classList.add('dragging');
+      });
+      
+      taskElement.addEventListener('dragend', function() {
+        this.classList.remove('dragging');
+      });
+      
+      // Set up event listeners for task actions
+      taskElement.querySelector('.edit-btn').addEventListener('click', function() {
+        editTask(task.id);
+      });
+      
+      taskElement.querySelector('.delete-btn').addEventListener('click', function() {
+        deleteTask(task.id);
+      });
+      
+      // Add event listeners for move up/down buttons if present
+      const moveUpBtn = taskElement.querySelector('.move-up-btn');
+      if (moveUpBtn) {
+        moveUpBtn.addEventListener('click', function() {
+          moveTaskUp(task.id);
+        });
+      }
+      
+      const moveDownBtn = taskElement.querySelector('.move-down-btn');
+      if (moveDownBtn) {
+        moveDownBtn.addEventListener('click', function() {
+          moveTaskDown(task.id);
+        });
+      }
+      
+      return taskElement;
+    }
+    
+    /**
+     * Updates the task count displays for all columns
+     */
+    function updateTaskCounts() {
+      boardData.columns.forEach(column => {
+        const tasksInColumn = boardData.tasks.filter(task => task.columnId === column.id).length;
+        const countElement = document.getElementById(`count-${column.id}`);
+        
+        if (countElement) {
+          countElement.textContent = tasksInColumn;
+        }
+      });
+    }
+    
+    // --- Task and Column Operations ---
+    
+    /**
+     * Opens the task modal for adding a new task
+     */
+    function openTaskModal() {
+      const taskModal = document.getElementById('task-modal');
+      const columnSelect = document.getElementById('task-column');
+      
+      // Reset form fields
+      document.getElementById('task-modal-title').textContent = 'Add New Task';
+      document.getElementById('task-id').value = '';
+      document.getElementById('task-order').value = '';
+      document.getElementById('task-title').value = '';
+      document.getElementById('task-description').value = '';
+      document.getElementById('task-due-date').value = '';
+      
+      // Populate column dropdown
+      columnSelect.innerHTML = '';
+      boardData.columns.forEach(column => {
+        const option = document.createElement('option');
+        option.value = column.id;
+        option.textContent = column.title;
+        columnSelect.appendChild(option);
+      });
+      
+      if (boardData.columns.length > 0) {
+        columnSelect.value = boardData.columns[0].id;
+      }
+      
+      taskModal.style.display = 'block';
+    }
+    
+    /**
+     * Opens the column modal for adding a new column
+     */
+    function openColumnModal() {
+      const columnModal = document.getElementById('column-modal');
+      
+      // Reset form fields
+      document.getElementById('column-modal-title').textContent = 'Add New Column';
+      document.getElementById('column-id').value = '';
+      document.getElementById('column-order').value = '';
+      document.getElementById('column-title').value = '';
+      
+      // Reset color picker selection to default
+      document.querySelectorAll('.color-option').forEach(option => {
+        option.classList.remove('selected');
+        if (option.dataset.color === '#ECECEC') {
+          option.classList.add('selected');
+        }
+      });
+      
+      columnModal.style.display = 'block';
+    }
+    
+    /**
+     * Saves a task (new or edited)
+     * @param {Event} e - The form submit event
+     */
+    function saveTask(e) {
+      e.preventDefault();
+      
+      const taskId = document.getElementById('task-id').value || generateId('task');
+      const columnId = document.getElementById('task-column').value;
+      const title = document.getElementById('task-title').value;
+      const description = document.getElementById('task-description').value;
+      const dueDate = document.getElementById('task-due-date').value;
+      
+      const existingTaskIndex = boardData.tasks.findIndex(task => task.id === taskId);
+      
+      if (existingTaskIndex !== -1) {
+        // Update existing task
+        const oldColumnId = boardData.tasks[existingTaskIndex].columnId;
+        
+        boardData.tasks[existingTaskIndex] = {
+          ...boardData.tasks[existingTaskIndex],
+          title,
+          description,
+          dueDate,
+          columnId
+        };
+        
+        // Update order if column changed
+        if (oldColumnId !== columnId) {
+          const maxOrder = boardData.tasks
+            .filter(task => task.columnId === columnId)
+            .reduce((max, task) => Math.max(max, task.order), -1);
+            
+          boardData.tasks[existingTaskIndex].order = maxOrder + 1;
+        }
+      } else {
+        // Create new task
+        const maxOrder = boardData.tasks
+          .filter(task => task.columnId === columnId)
+          .reduce((max, task) => Math.max(max, task.order), -1);
+          
+        boardData.tasks.push({
+          id: taskId,
+          columnId,
+          title,
+          description,
+          dueDate,
+          order: maxOrder + 1
+        });
+      }
+      
+      saveBoardData();
+      renderBoard();
+      document.getElementById('task-modal').style.display = 'none';
+    }
+    
+    /**
+     * Saves a column (new or edited)
+     * @param {Event} e - The form submit event
+     */
+    function saveColumn(e) {
+      e.preventDefault();
+      
+      const columnId = document.getElementById('column-id').value || generateId('column');
+      const title = document.getElementById('column-title').value;
+      
+      // Get the color from the selected preset option
+      const colorOption = document.querySelector('.color-option.selected');
+      const color = colorOption ? colorOption.dataset.color : '#ECECEC';
+      
+      const existingColumnIndex = boardData.columns.findIndex(column => column.id === columnId);
+      
+      if (existingColumnIndex !== -1) {
+        // Update existing column
+        boardData.columns[existingColumnIndex].title = title;
+        boardData.columns[existingColumnIndex].color = color;
+      } else {
+        // Create new column
+        const maxOrder = boardData.columns.length > 0 
+          ? boardData.columns.reduce((max, column) => Math.max(max, column.order), -1) 
+          : -1;
+          
+        boardData.columns.push({
+          id: columnId,
+          title,
+          color,
+          order: maxOrder + 1
+        });
+      }
+      
+      saveBoardData();
+      renderBoard();
+      document.getElementById('column-modal').style.display = 'none';
+    }
+    
+    /**
+     * Prepares the task modal for editing an existing task
+     * @param {string} taskId - ID of the task to edit
+     */
+    function editTask(taskId) {
+      const task = boardData.tasks.find(task => task.id === taskId);
+      
+      if (task) {
+        document.getElementById('task-modal-title').textContent = 'Edit Task';
+        document.getElementById('task-id').value = task.id;
+        document.getElementById('task-order').value = task.order;
+        document.getElementById('task-title').value = task.title;
+        document.getElementById('task-description').value = task.description;
+        
+        if (task.dueDate) {
+          document.getElementById('task-due-date').value = task.dueDate;
+        } else {
+          document.getElementById('task-due-date').value = '';
+        }
+        
+        // Populate column dropdown
+        const columnSelect = document.getElementById('task-column');
+        columnSelect.innerHTML = '';
+        
+        boardData.columns.forEach(column => {
+          const option = document.createElement('option');
+          option.value = column.id;
+          option.textContent = column.title;
+          columnSelect.appendChild(option);
+        });
+        
+        columnSelect.value = task.columnId;
+        document.getElementById('task-modal').style.display = 'block';
+      }
+    }
+    
+    /**
+     * Prepares the column modal for editing an existing column
+     * @param {string} columnId - ID of the column to edit
+     */
+    function editColumn(columnId) {
+      const column = boardData.columns.find(column => column.id === columnId);
+      
+      if (column) {
+        document.getElementById('column-modal-title').textContent = 'Edit Column';
+        document.getElementById('column-id').value = column.id;
+        document.getElementById('column-order').value = column.order;
+        document.getElementById('column-title').value = column.title;
+        
+        // Update preset color selection
+        let colorFound = false;
+        document.querySelectorAll('.color-option').forEach(option => {
+          option.classList.remove('selected');
+          if (option.dataset.color === column.color) {
+            option.classList.add('selected');
+            colorFound = true;
+          }
+        });
+        
+        // Default to first color if not found
+        if (!colorFound && document.querySelectorAll('.color-option').length > 0) {
+          document.querySelectorAll('.color-option')[0].classList.add('selected');
+        }
+        
+        document.getElementById('column-modal').style.display = 'block';
+      }
+    }
+    
+    /**
+     * Deletes a task after confirmation
+     * @param {string} taskId - ID of the task to delete
+     */
+    function deleteTask(taskId) {
+      if (confirm('Are you sure you want to delete this task?')) {
+        boardData.tasks = boardData.tasks.filter(task => task.id !== taskId);
+        saveBoardData();
+        renderBoard();
+      }
+    }
+    
+    /**
+     * Deletes a column and optionally its tasks after confirmation
+     * @param {string} columnId - ID of the column to delete
+     */
+    function deleteColumn(columnId) {
+      const tasksInColumn = boardData.tasks.filter(task => task.columnId === columnId);
+      
+      if (tasksInColumn.length > 0) {
+        if (!confirm(`This column contains ${tasksInColumn.length} task(s). Deleting it will also delete all tasks in this column. Continue?`)) {
+          return;
+        }
+      } else {
+        if (!confirm('Are you sure you want to delete this column?')) {
+          return;
+        }
+      }
+      
+      // Remove the column and its tasks
+      boardData.columns = boardData.columns.filter(column => column.id !== columnId);
+      boardData.tasks = boardData.tasks.filter(task => task.columnId !== columnId);
+      
+      // Reorder remaining columns
+      boardData.columns
+        .sort((a, b) => a.order - b.order)
+        .forEach((column, index) => {
+          column.order = index;
+        });
+        
+      saveBoardData();
+      renderBoard();
+    }
+    
+    /**
+     * Moves a task up in order within its column
+     * @param {string} taskId - ID of the task to move
+     */
+    function moveTaskUp(taskId) {
+      const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
+      
+      if (taskIndex !== -1) {
+        const task = boardData.tasks[taskIndex];
+        const currentOrder = task.order;
+        
+        if (currentOrder > 0) {
+          const tasksInSameColumn = boardData.tasks.filter(t => t.columnId === task.columnId);
+          const taskAbove = tasksInSameColumn.find(t => t.order === currentOrder - 1);
+          
+          if (taskAbove) {
+            task.order = currentOrder - 1;
+            taskAbove.order = currentOrder;
+            saveBoardData();
+            renderBoard();
+          }
+        }
+      }
+    }
+    
+    /**
+     * Moves a task down in order within its column
+     * @param {string} taskId - ID of the task to move
+     */
+    function moveTaskDown(taskId) {
+      const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
+      
+      if (taskIndex !== -1) {
+        const task = boardData.tasks[taskIndex];
+        const currentOrder = task.order;
+        const tasksInSameColumn = boardData.tasks.filter(t => t.columnId === task.columnId);
+        const taskBelow = tasksInSameColumn.find(t => t.order === currentOrder + 1);
+        
+        if (taskBelow) {
+          task.order = currentOrder + 1;
+          taskBelow.order = currentOrder;
+          saveBoardData();
+          renderBoard();
+        }
+      }
+    }
+    
+    // --- Setup Color Picker ---
+    
+    /**
+     * Sets up the color picker for column creation/editing
+     */
+    function setupColorPicker() {
+      const colorOptions = document.querySelectorAll('.color-option');
+      
+      // Ensure one option is selected by default
+      if (!document.querySelector('.color-option.selected') && colorOptions.length > 0) {
+        colorOptions[0].classList.add('selected');
+      }
+      
+      colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          colorOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+    }
+    
+    // --- Event Listeners ---
+    
+    /**
+     * Sets up all event listeners for the application
+     */
+    function setupEventListeners() {
+      document.getElementById('add-task-btn').addEventListener('click', openTaskModal);
+      document.getElementById('add-column-modal-btn').addEventListener('click', openColumnModal);
+      document.getElementById('export-btn').addEventListener('click', exportBoardData);
+      document.getElementById('import-file').addEventListener('change', importBoard);
+      
+      // Set up modal close buttons
+      document.querySelectorAll('.close').forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+          document.getElementById(this.dataset.modal).style.display = 'none';
+        });
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+          event.target.style.display = 'none';
+        }
+      });
+      
+      // Set up form submissions
+      document.getElementById('task-form').addEventListener('submit', saveTask);
+      document.getElementById('column-form').addEventListener('submit', saveColumn);
+      
+      setupColorPicker();
+    }
+    
+    // --- Initialize Application ---
+    document.addEventListener('DOMContentLoaded', function() {
+      loadBoardData();
+      setupEventListeners();
+    });
+  </script>
+</body>
+</html>
