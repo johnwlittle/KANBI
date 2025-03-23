@@ -26,18 +26,16 @@ KANBI's ethos is centered around minimalism and practicality. We believe product
 - Visual customization with column colors
 
 ## Getting Started
-1. Clone or download this repository
+1. Clone or download this repository. No dependencies, or server required.
 2. Open `index.html` in your web browser
-3. Start organizing your tasks!
-4. For the best experience, disable your browser's download confirmation popups:
+3. For the best experience, disable your browser's download confirmation popups:
    - **Chrome**: Go to Settings → Downloads and turn off "Ask where to save each file before downloading"
    - **Firefox**: Go to Settings/Preferences → General → Files and Applications and uncheck "Always ask you where to save files"
    - **Edge**: Go to Settings → Downloads and turn off "Ask me what to do with each download"
    - **Safari**: Go to Safari → Preferences → General and uncheck "Show downloads window when downloading files"
+4. Start organizing your tasks!
 
 **Note:** KANBI automatically saves backups to your browser's default download folder. Check this location periodically to find your auto-saved files (typically named `KANBI_Board_YYYY-MM-DD_HHMM.json`).
-
-No installation, dependencies, or server required.
 
 ## Usage
 See the built-in help documentation by clicking the "Help" button in the application, or view `kanbi-help.html` directly for detailed usage instructions.
