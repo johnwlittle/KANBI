@@ -1,5 +1,4 @@
 # KANBI
-
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 A lightweight, no-bullshit Kanban board application designed for simplicity and efficiency.
@@ -7,13 +6,10 @@ A lightweight, no-bullshit Kanban board application designed for simplicity and 
 ![KANBI Screenshot](images/example.jpg)
 
 ## About
-
 KANBI helps you visualize your workflow, limit work-in-progress, and maximize productivity without the bloat of complex project management tools. It's designed to be straightforward, fast, and reliable.
 
 ## Core Philosophy
-
 KANBI's ethos is centered around minimalism and practicality. We believe productivity tools should get out of your way and let you focus on what matters. The application adheres to these core principles:
-
 - **Simplicity:** No unnecessary features or complex configurations
 - **Speed:** Optimized for performance, even on older devices  
 - **Privacy:** Your data stays on your device with local storage
@@ -21,7 +17,6 @@ KANBI's ethos is centered around minimalism and practicality. We believe product
 - **Portability:** Export and import your boards easily
 
 ## Features
-
 - Customizable columns to match your workflow
 - Intuitive drag-and-drop task management
 - Due dates with visual indicators for approaching deadlines
@@ -31,7 +26,6 @@ KANBI's ethos is centered around minimalism and practicality. We believe product
 - Visual customization with column colors
 
 ## Getting Started
-
 1. Clone or download this repository
 2. Open `index.html` in your web browser
 3. Start organizing your tasks!
@@ -39,16 +33,37 @@ KANBI's ethos is centered around minimalism and practicality. We believe product
 No installation, dependencies, or server required.
 
 ## Usage
-
 See the built-in help documentation by clicking the "Help" button in the application, or view `kanbi-help.html` directly for detailed usage instructions.
 
-## Limitations & Workarounds
+## Data Storage & Backup
 
+### Local Storage
+Your data is stored in your browser's local storage. This means:
+- Your board data persists between sessions
+- Data is specific to the browser you're using
+- Clearing browser data will erase your board
+
+### Auto-Save & Exports
+KANBI features automatic backup functionality:
+- Changes are automatically saved to local storage
+- The app automatically exports JSON backups to your **Downloads** directory
+- Exported files use the naming format: `KANBI_Board_YYYY-MM-DD_HHMM.json`
+
+### Browser Settings
+For the best experience with KANBI:
+- Consider disabling download confirmation popups in your browser settings
+- This prevents interruptions when auto-save creates backup files
+- Check your browser's download settings to configure this option
+
+### Data Management
+- Export manually before making significant changes
+- Regularly clean your Downloads folder to avoid clutter
+- Import previously exported boards if you need to restore data
+
+## Limitations & Workarounds
 - **Single Board Limitation:** KANBI currently supports one board per browser instance. For multiple boards, clone the KANBI files into different directories.
-- **Local Storage:** Your data is stored in your browser. Export regularly to avoid data loss.
 
 ## License
-
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
 
 This means you are free to:
