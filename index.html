@@ -1219,22 +1219,30 @@ function exportBoardData(silent = false) {
       taskElement.setAttribute('draggable', 'true');
       taskElement.id = task.id;
       
-      // Format due date for display
-      let dueDateDisplay = '';
-      let isDueToday = false;
-      let isOverdue = false;
-      
-      if (task.dueDate) {
-        const dueDate = new Date(task.dueDate);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        dueDateDisplay = dueDate.toLocaleDateString(undefined, options);
-        
-        isDueToday = dueDate.getTime() === today.getTime();
-        isOverdue = dueDate < today;
-      }
+    // Format due date for display
+    let dueDateDisplay = '';
+    let isDueToday = false;
+    let isOverdue = false;
+
+    if (task.dueDate) {
+    // Fix timezone issue by parsing the date properly
+    // Add time component to ensure date is interpreted correctly
+    const dueDateStr = task.dueDate + 'T12:00:00';
+    const dueDate = new Date(dueDateStr);
+  
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    // Create a date object for comparison that's timezone-adjusted
+    const adjustedDueDate = new Date(dueDate);
+    adjustedDueDate.setHours(0, 0, 0, 0);
+  
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    dueDateDisplay = dueDate.toLocaleDateString(undefined, options);
+  
+    isDueToday = adjustedDueDate.getTime() === today.getTime();
+    isOverdue = adjustedDueDate < today;
+  }
       
       const dueDateClass = isOverdue ? 'overdue' : (isDueToday ? 'due-today' : '');
       const dueDatePrefix = isOverdue ? '⚠️ Due: ' : (isDueToday ? '⏰ Due Today: ' : 'Due: ');
