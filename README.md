@@ -60,8 +60,13 @@ For the best experience with KANBI:
 - Regularly clean your Downloads folder to avoid clutter
 - Import previously exported boards if you need to restore data
 
+Here's a cleaned-up version of your limitations section:
+
 ## Limitations & Workarounds
-- **Single Board Limitation:** KANBI currently supports one board per browser instance. For multiple boards, clone the KANBI files into different directories.
+- **Single Board Limitation:** KANBI supports one board per browser instance. For multiple boards, clone the KANBI files into different directories.
+- **File Management:** The auto-backup system creates regular JSON exports to your downloads folder. Consider disabling your browser's download popup notifications for a smoother experience, and periodically clean up accumulated files.
+- **Mobile Compatibility:** Some mobile browsers have limited support for file storage operations, which may affect export/import functionality. Results vary by device and browser.
+- **Local by Design:** KANBI intentionally stores data locally without cloud synchronization. This approach maximizes privacy and simplicity, though cloud/sync features may be considered for future versions.
 
 ## License
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
