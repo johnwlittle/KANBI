@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KANBI Help & Documentation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap');
+
+    /* --------- Core Variables --------- */
+    :root {
+      /* Color Scheme */
+      --primary: #5c7ba6;
+      --primary-light: #f7f9fc;
+      --primary-dark: #3b4c65;
+      
+      --secondary: #7d8ea5;
+      --secondary-light: #edf0f5;
+      --secondary-dark: #6a7a94;
+      
+      --accent: #a3b4c6;
+      --accent-light: #e2e5eb;
+      --accent-hover: #8ca4bb;
+      
+      --white: #ffffff;
+      --gray-100: #f8f9fa;
+      --gray-200: #f0f2f7;
+      --gray-300: #e2e5eb;
+      --gray-400: #c2cad6;
+      
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      --focus-shadow: 0 0 0 2px rgba(92, 123, 166, 0.15);
+      
+      --orange: #FF9800;
+      --orange-light: #FFF3E0;
+    }
+
+    /* --------- Base Styles --------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--primary-dark);
+      background-color: var(--gray-100);
+      background-image: linear-gradient(135deg, #f5f6fa 0%, #e6ecf3 100%);
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* --------- Layout --------- */
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* --------- Header --------- */
+    .header {
+      background-color: var(--white);
+      padding: 20px;
+      border-bottom: 1px solid var(--gray-300);
+      box-shadow: var(--header-shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h1 {
+      text-align: left;
+      margin-bottom: 0;
+      padding: 0;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo h1 .letter-a,
+    .logo h1 .letter-i {
+      color: #87CEEB;
+    }
+
+    .back-btn {
+      background-color: var(--gray-200);
+      color: var(--primary-dark);
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-transform: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+    }
+
+    .back-btn:hover {
+      background-color: #E1F5FE;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* --------- Main Content --------- */
+    .main-content {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: var(--white);
+      box-shadow: var(--card-shadow);
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* --------- Help Content Styling --------- */
+    .help-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-dark);
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .help-section {
+      margin-bottom: 40px;
+    }
+
+    .help-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .help-section h2 {
+      color: var(--primary-dark);
+      font-weight: 500;
+      font-size: 22px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gray-300);
+    }
+
+    .help-section h3 {
+      color: var(--primary);
+      font-weight: 500;
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
+    .help-section p {
+      margin-bottom: 15px;
+      line-height: 1.7;
+      color: var(--primary-dark);
+    }
+
+    .help-section ul,
+    .help-section ol {
+      margin-bottom: 20px;
+      padding-left: 25px;
+    }
+
+    .help-section li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .help-section code {
+      background-color: var(--gray-200);
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    /* Feature grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card {
+      background-color: var(--gray-100);
+      border-radius: 6px;
+      padding: 20px;
+      border: 1px solid var(--gray-300);
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      font-size: 16px;
+      color: var(--primary-dark);
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .feature-card p {
+      margin-bottom: 0;
+      font-size: 14px;
+      color: var(--secondary-dark);
+    }
+
+    /* Tips section */
+    .tips-list {
+      background-color: var(--primary-light);
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .tips-list li {
+      margin-bottom: 12px;
+    }
+
+    .tips-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Image container */
+    .image-container {
+      margin: 20px 0;
+      text-align: center;
+      border: 1px solid var(--gray-300);
+      padding: 10px;
+      border-radius: 6px;
+      background-color: var(--white);
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .image-container figcaption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--secondary-dark);
+    }
+
+    /* Links */
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Table of contents */
+    .toc {
+      background-color: var(--gray-100);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border: 1px solid var(--gray-300);
+    }
+
+    .toc h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+      font-size: 16px;
+    }
+
+    .toc ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .toc li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .toc a:hover {
+      background-color: var(--gray-200);
+      text-decoration: none;
+    }
+
+    /* --------- Footer --------- */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--white);
+      border-top: 1px solid var(--gray-300);
+      font-size: 12px;
+      color: var(--accent-hover);
+    }
+
+    /* --------- Responsive Styles --------- */
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .logo {
+        margin-bottom: 10px;
+      }
+      
+      .back-btn {
+        align-self: flex-start;
+      }
+      
+      .main-content {
+        padding: 20px;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .help-title {
+        font-size: 24px;
+      }
+      
+      .help-section h2 {
+        font-size: 20px;
+      }
+      
+      .help-section h3 {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <h1>K<span class="letter-a">A</span>NB<span class="letter-i">I</span></h1>
+      </div>
+      <button class="back-btn" onclick="window.location.href='index.html'">Back to KANBI</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="help-title">KANBI Help & Documentation</h1>
+      
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>Contents</h3>
+        <ul>
+          <li><a href="#about">About KANBI</a></li>
+          <li><a href="#philosophy">Core Philosophy</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#usage">How to Use KANBI</a></li>
+          <li><a href="#limitations">Limitations & Workarounds</a></li>
+          <li><a href="#tips">Tips & Tricks</a></li>
+          <li><a href="#about-creator">About the Creator</a></li>
+        </ul>
+      </div>
+      
+      <!-- About Section -->
+      <section id="about" class="help-section">
+        <h2>About KANBI</h2>
+        <p>KANBI is a lightweight, no-bullshit Kanban board application designed for simplicity and efficiency. It helps you visualize your workflow, limit work-in-progress, and maximize productivity without the bloat of complex project management tools.</p>
+        
+        <div class="image-container">
+          <img src="images/example.jpg" alt="KANBI Board Example" />
+          <figcaption>A typical KANBI board with tasks organized across columns</figcaption>
+        </div>
+      </section>
+      
+      <!-- Philosophy Section -->
+      <section id="philosophy" class="help-section">
+        <h2>Core Philosophy</h2>
+        <p>KANBI's ethos is centered around minimalism and practicality. We believe productivity tools should get out of your way and let you focus on what matters. KANBI is designed to be straightforward, fast, and reliable.</p>
+        
+        <p>The application adheres to these core principles:</p>
+        <ul>
+          <li><strong>Simplicity:</strong> No unnecessary features or complex configurations</li>
+          <li><strong>Speed:</strong> Optimized for performance, even on older devices</li>
+          <li><strong>Privacy:</strong> Your data stays on your device with local storage</li>
+          <li><strong>Flexibility:</strong> Customize your workflow without constraints</li>
+          <li><strong>Portability:</strong> Export and import your boards easily</li>
+        </ul>
+      </section>
+      
+      <!-- Features Section -->
+      <section id="features" class="help-section">
+        <h2>Features</h2>
+        <p>KANBI provides all the essential features you need in a Kanban board, without unnecessary complexity:</p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Customizable Columns</h3>
+            <p>Create, edit, and reorder columns to match your workflow</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Task Management</h3>
+            <p>Add, edit, prioritize and move tasks between columns</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Drag and Drop</h3>
+            <p>Intuitive interface for organizing your board</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Due Dates</h3>
+            <p>Set and track deadlines with visual indicators</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Data Persistence</h3>
+            <p>Automatic saving to local storage</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Import/Export</h3>
+            <p>Save and load your boards as JSON files</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Responsive Design</h3>
+            <p>Works on desktop and mobile devices</p>
+          </div>
+          
+          <div class="feature-card">
+            <h3>Visual Customization</h3>
+            <p>Customize column colors to match your preferences</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Usage Section -->
+      <section id="usage" class="help-section">
+        <h2>How to Use KANBI</h2>
+        
+        <h3>Managing Columns</h3>
+        <ul>
+          <li><strong>Add a Column:</strong> Click the "+ Column" button in the header or the "Add Column" box at the end of your board</li>
+          <li><strong>Edit a Column:</strong> Click the pencil icon (✏️) on a column to edit its title or color</li>
+          <li><strong>Reorder Columns:</strong> Drag columns horizontally to change their order</li>
+          <li><strong>Delete a Column:</strong> Click the trash icon (🗑️) on a column (this will delete all tasks in that column)</li>
+        </ul>
+        
+        <h3>Managing Tasks</h3>
+        <ul>
+          <li><strong>Add a Task:</strong> Click the "+ Task" button in the header</li>
+          <li><strong>Edit a Task:</strong> Click the pencil icon (✏️) on a task</li>
+          <li><strong>Move a Task:</strong> Drag tasks between columns to change their status</li>
+          <li><strong>Prioritize Tasks:</strong> Use the up/down arrows to reorder tasks within a column</li>
+          <li><strong>Delete a Task:</strong> Click the trash icon (🗑️) on a task</li>
+        </ul>
+        
+        <h3>Setting Due Dates</h3>
+        <p>When creating or editing a task, you can set a due date. Tasks will display differently based on their due date status:</p>
+        <ul>
+          <li><strong>Normal:</strong> Due dates in the future</li>
+          <li><strong>Due Today:</strong> Tasks due on the current day will show "⏰ Due Today" in amber</li>
+          <li><strong>Overdue:</strong> Tasks past their due date will show "⚠️ Due: [date]" in red</li>
+        </ul>
+        
+        <h3>Saving Your Work</h3>
+        <ul>
+          <li><strong>Automatic Saving:</strong> KANBI automatically saves your board to your browser's local storage (usually the "Downloads" directory</li>
+          <li><strong>Manual Export:</strong> Click the "Export" button to save your board as a JSON file</li>
+          <li><strong>Importing:</strong> Click the "Import" button to load a previously exported board</li>
+        </ul>
+      </section>
+      
+      <!-- Limitations Section -->
+      <section id="limitations" class="help-section">
+        <h2>Limitations & Workarounds</h2>
+        
+        <h3>Single Board Limitation</h3>
+        <p>KANBI currently supports one board per browser. For multiple boards, simply clone the KANBI index.html file into different directories and use them as separate instances.</p>
+        
+        <h3>File Management</h3>
+        <p>Exporting creates new JSON files. Periodically clean up your downloads folder to avoid clutter. You may want to create a dedicated folder for your KANBI board exports.</p>
+        
+        <h3>Local Storage</h3>
+        <p>Your data is stored in your browser. Clearing browser data will erase your board. Export regularly to avoid data loss. When using multiple browsers or devices, manually export/import to keep your boards in sync.</p>
+        
+        <h3>Task Limits</h3>
+        <p>While there's no hard limit on tasks, performance may degrade with hundreds of tasks. Consider archiving completed work regularly by exporting your board, clearing finished tasks, and saving the archive file for reference.</p>
+      </section>
+      
+      <!-- Tips Section -->
+      <section id="tips" class="help-section">
+        <h2>Tips & Tricks</h2>
+        
+        <div class="tips-list">
+          <ul>
+            <li><strong>Use consistent column colors</strong> for better visual organization. For example, use cooler colors for early stages and warmer colors for completion stages.</li>
+            <li><strong>Export your board regularly</strong> as a backup, especially before making significant changes.</li>
+            <li><strong>Keep task descriptions concise</strong> for better readability and overall board performance.</li>
+            <li><strong>Use due dates strategically</strong> to highlight time-sensitive tasks rather than assigning them to everything.</li>
+            <li><strong>Limit work-in-progress</strong> by keeping task counts in middle columns low. This improves focus and completion rates.</li>
+            <li><strong>Create a workflow that matches your process</strong>, not the other way around. Add, remove, or rename columns to fit your needs.</li>
+            <li><strong>Review and clean up your board periodically</strong> to maintain performance and focus on current priorities.</li>
+          </ul>
+        </div>
+      </section>
+      
+      <!-- Creator Section -->
+      <section id="about-creator" class="help-section">
+        <h2>About the Creator</h2>
+        <p>KANBI was developed by John W. Little. Visit <a href="http://johnwlittle.com" target="_blank">johnwlittle.com</a> for updates or to explore other projects.</p>
+        <p>KANBI is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>, which means you can share and adapt the material for non-commercial purposes, as long as you give appropriate credit.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      KANBI by John W. Little &copy; 2025 • Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
+    </footer>
+  </div>
+</body>
+</html>
