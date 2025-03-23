@@ -379,6 +379,7 @@
         <h3>Contents</h3>
         <ul>
           <li><a href="#about">About KANBI</a></li>
+          <li><a href="#getting-started">Getting Started</a></li>
           <li><a href="#philosophy">Core Philosophy</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#usage">How to Use KANBI</a></li>
@@ -396,6 +397,34 @@
         <div class="image-container">
           <img src="images/example.jpg" alt="KANBI Board Example" />
           <figcaption>A typical KANBI board with tasks organized across columns</figcaption>
+        </div>
+      </section>
+      
+      <!-- Getting Started Section -->
+      <section id="getting-started" class="help-section">
+        <h2>Getting Started</h2>
+        <p>Getting up and running with KANBI is quick and straightforward:</p>
+        
+        <ol>
+          <li><strong>Clone or download</strong> this repository. No dependencies or server required.</li>
+          <li><strong>Open</strong> <code>index.html</code> in your web browser</li>
+          <li>For the <strong>best experience</strong>, disable your browser's download confirmation popups:
+            <ul>
+              <li><strong>Chrome:</strong> Go to Settings → Downloads and turn off "Ask where to save each file before downloading"</li>
+              <li><strong>Firefox:</strong> Go to Settings/Preferences → General → Files and Applications and uncheck "Always ask you where to save files"</li>
+              <li><strong>Edge:</strong> Go to Settings → Downloads and turn off "Ask me what to do with each download"</li>
+              <li><strong>Safari:</strong> Go to Safari → Preferences → General and uncheck "Show downloads window when downloading files"</li>
+            </ul>
+          </li>
+          <li>Start organizing your tasks!</li>
+        </ol>
+        
+        <div class="tips-list">
+          <ul>
+            <li>KANBI saves your data automatically to your browser's local storage.</li>
+            <li>The "Export" button lets you save a backup of your board as a JSON file.</li>
+            <li>Start by creating a few tasks in the default columns, or customize your columns to match your workflow.</li>
+          </ul>
         </div>
       </section>
       
