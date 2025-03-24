@@ -614,18 +614,15 @@
 
     /* --------- File Input --------- */
     .file-input-container {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
+      display: inline-block; /* Keep it simple */
     }
 
     .file-input {
       position: absolute;
-      font-size: 100px;
-      right: 0;
-      top: 0;
       opacity: 0;
-      cursor: pointer;
+      width: 0;
+      height: 0;
+      pointer-events: none; /* This ensures it doesn't interfere with clicks */
     }
 
     #file-name {
@@ -746,8 +743,8 @@
       <button class="btn add-task-btn" id="add-task-btn">+ Task</button>
       <button class="btn add-column-btn" id="add-column-modal-btn">+ Column</button>
       <div class="file-input-container">
-        <button class="btn import-btn">Import</button>
-        <input type="file" id="import-file" class="file-input" accept=".json">
+        <button class="btn import-btn" id="import-btn">Import</button>
+        <input type="file" id="import-file" class="file-input" accept=".json" style="position: absolute; opacity: 0; pointer-events: none;">
       </div>
       <button class="btn export-btn" id="export-btn">Export</button>
       <button class="btn help-btn" id="help-btn" onclick="window.location.href='kanbi-help.html'">Help</button>
@@ -1658,6 +1655,11 @@ function exportBoardData(silent = false) {
       document.getElementById('add-column-modal-btn').addEventListener('click', openColumnModal);
       document.getElementById('export-btn').addEventListener('click', exportBoardData);
       document.getElementById('import-file').addEventListener('change', importBoard);
+
+      // Add this line to fix the import button behavior
+      document.querySelector('.import-btn').addEventListener('click', function() {
+      document.getElementById('import-file').click();
+      });
       
       // Set up modal close buttons
       document.querySelectorAll('.close').forEach(closeBtn => {
