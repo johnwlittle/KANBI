@@ -33,6 +33,7 @@
       --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
       --focus-shadow: 0 0 0 2px rgba(92, 123, 166, 0.15);
+      --scrollbar-height: 8px; 
     }
 
     /* --------- Base Styles --------- */
@@ -55,680 +56,309 @@
 
     /* --------- Logo Styling --------- */
     .logo h1 {
-      text-align: left;
-      margin-bottom: 0;
-      padding: 0;
-      color: var(--primary-dark);
-      font-weight: 800;
-      font-size: 26px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      position: relative;
-      display: inline-block;
+      text-align: left; margin-bottom: 0; padding: 0; color: var(--primary-dark);
+      font-weight: 800; font-size: 26px; letter-spacing: 4px; text-transform: uppercase;
+      position: relative; display: inline-block; line-height: 1.2; 
     }
-
-    .logo h1 .letter-a,
-    .logo h1 .letter-i {
-      color: #87CEEB;
-    }
+    .logo h1 .letter-a, .logo h1 .letter-i { color: #87CEEB; }
 
     /* --------- Header Layout --------- */
     .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #ffffff;
-      padding: 15px 20px;
-      border-radius: 6px;
-      border: 1px solid #e1e4eb;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      background-color: #ffffff; padding: 15px 20px; border-radius: 6px;
+      border: 1px solid #e1e4eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      margin-bottom: 20px; flex-wrap: wrap;
     }
-
-    .logo {
-      margin-right: 30px;
-    }
-
+    .logo { margin-right: 30px; flex-shrink: 0; }
     .controls {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      align-items: center;
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center; 
+      flex-grow: 1; justify-content: flex-start; 
     }
-
-    .file-info {
-      color: var(--accent-hover);
-      font-size: 12px;
-      margin-left: auto;
+    .active-board-display {
+      color: var(--primary-dark); font-size: 22px; font-weight: 600;           
+      line-height: 1.2; margin-left: auto; white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis; min-width: 150px; padding: 5px 10px; 
+      display: flex; align-items: center; text-align: right; flex-shrink: 0; 
+    }
+    @media (max-width: 992px) { 
+        .header-container { flex-direction: column; align-items: flex-start; }
+        .logo { margin-bottom: 10px; }
+        .controls { width: 100%; margin-top: 0; order: 3; }
+        .active-board-display {
+            margin-left: 0; margin-top: 5px; margin-bottom: 10px; width: 100%;
+            text-align: left; max-width: none; font-size: 18px; order: 2; 
+            min-width: 0; padding: 5px 0;
+        }
+    }
+    @media (max-width: 480px) { 
+        .controls { gap: 5px; }
+        .controls .btn { padding: 8px 12px; font-size: 12px; }
+        .active-board-display { font-size: 16px; }
     }
 
     /* --------- Button Styles --------- */
     .btn {
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      border: none;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      text-transform: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      border-radius: 20px; padding: 10px 20px; font-weight: 500;
+      transition: all 0.3s ease; border: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-transform: none; display: inline-flex; align-items: center;
+      justify-content: center; gap: 5px; position: relative; overflow: hidden;
+      cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px;
     }
-
-    /* Task Button - Salmon Pink */
-    .add-task-btn {
-      background-color: #FFE4E1;
-      color: #8B5F5F;
-    }
-
-    .add-task-btn:hover {
-      background-color: #FFD4D4;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Column Button - Mint Green */
-    .add-column-btn {
-      background-color: #E0F2E9;
-      color: #2E7D50;
-    }
-
-    .add-column-btn:hover {
-      background-color: #C8EAD6;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Import Button - Lavender */
-    .import-btn {
-      background-color: #E6E6FA;
-      color: #6A5ACD;
-    }
-
-    .import-btn:hover {
-      background-color: #D8D0F5;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Export Button - Sky Blue */
-    .export-btn {
-      background-color: #E1F5FE;
-      color: #2196F3;
-    }
-
-    .export-btn:hover {
-      background-color: #B3E5FC;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Button Ripple Effect */
+    .add-task-btn { background-color: #FFE4E1; color: #8B5F5F; }
+    .add-task-btn:hover { background-color: #FFD4D4; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); }
+    .add-column-btn { background-color: #E0F2E9; color: #2E7D50; }
+    .add-column-btn:hover { background-color: #C8EAD6; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); }
+    .dropdown-btn { background-color: var(--gray-200); color: var(--primary-dark); }
+    .dropdown-btn:hover { background-color: var(--gray-300); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
+    .help-btn { background-color: #E1F5FE; color: #0277BD; }
+    .help-btn:hover { background-color: #B3E5FC; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); }
     .btn::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      opacity: 0;
+      content: ""; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0); width: 0; height: 0;
+      border-radius: 50%; background: rgba(255, 255, 255, 0.3); opacity: 0;
       transition: all 0.3s ease;
     }
+    .btn:active::after { width: 200%; height: 200%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-    .btn:active::after {
-      width: 200%;
-      height: 200%;
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-content {
+      display: none; position: absolute; background-color: var(--white);
+      min-width: 220px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+      z-index: 100; border-radius: 4px; padding: 8px 0;
+      border: 1px solid var(--gray-300); top: 100%; left: 0; 
+    }
+    .dropdown-content.align-right { left: auto; right: 0; }
+    .dropdown-content a, .dropdown-content .dropdown-item {
+      color: var(--primary-dark); padding: 10px 15px; text-decoration: none;
+      display: block; font-size: 13px; cursor: pointer; border: none;
+      background: none; width: 100%; text-align: left; font-family: 'Inter', sans-serif;
+    }
+    .dropdown-content a:hover, .dropdown-content .dropdown-item:hover {
+      background-color: var(--gray-200); color: var(--primary);
+    }
+    .dropdown-content hr { border: 0; height: 1px; background-color: var(--gray-300); margin: 8px 0; }
+    .dropdown-content .board-name-item.active-board {
+      font-weight: 600; color: var(--primary); background-color: var(--primary-light);
     }
 
-    /* --------- Status Messages --------- */
     .status-msg {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 20px;
-      background-color: var(--white);
-      color: var(--primary-dark);
-      border-radius: 4px;
-      border-left: 3px solid var(--secondary);
-      box-shadow: var(--card-shadow);
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 1000;
+      position: fixed; bottom: 20px; right: 20px; padding: 12px 20px;
+      background-color: var(--white); color: var(--primary-dark); border-radius: 4px;
+      border-left: 3px solid var(--secondary); box-shadow: var(--card-shadow);
+      opacity: 0; transition: opacity 0.3s; z-index: 1000;
     }
+    .error-msg { border-left: 3px solid #a58b8b; }
 
-    .error-msg {
-      border-left: 3px solid #a58b8b;
-    }
-
-    /* --------- Boards Container --------- */
     .boards-container {
-      display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 15px;
-      min-height: 400px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--accent) var(--gray-200);
-      background-color: var(--white);
-      border-radius: 6px;
-      border: 1px solid var(--gray-300);
+      display: flex; overflow-x: auto; gap: 10px; padding: 15px; min-height: 400px;
+      scrollbar-width: thin; scrollbar-color: var(--accent) var(--gray-200);
+      background-color: var(--white); border-radius: 6px; border: 1px solid var(--gray-300);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
+    .boards-container::-webkit-scrollbar { height: var(--scrollbar-height); }
+    .boards-container::-webkit-scrollbar-track { background: var(--gray-200); border-radius: 10px; }
+    .boards-container::-webkit-scrollbar-thumb { background-color: var(--accent); border-radius: 10px; }
 
-    .boards-container::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .boards-container::-webkit-scrollbar-track {
-      background: var(--gray-200);
-      border-radius: 10px;
-    }
-
-    .boards-container::-webkit-scrollbar-thumb {
-      background-color: var(--accent);
-      border-radius: 10px;
-    }
-
-    /* --------- Board Columns --------- */
     .board {
-      min-width: 260px;
-      max-width: 260px;
-      background-color: var(--gray-100);
-      border-radius: 4px;
-      padding: 0 0 15px 0;
-      height: fit-content;
-      transition: all 0.2s;
-      cursor: grab;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+      min-width: 260px; max-width: 260px; background-color: var(--gray-100);
+      border-radius: 4px; padding: 0 0 15px 0; height: fit-content;
+      transition: all 0.2s; cursor: grab; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
       border: 1px solid var(--gray-300);
     }
-
-    .board.dragging {
-      opacity: 0.8;
-      transform: scale(0.98);
-    }
-
+    .board.dragging { opacity: 0.8; transform: scale(0.98); }
     .board-header {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 15px;
-      padding: 15px;
-      border-bottom: 1px solid var(--gray-300);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: var(--white);
-      border-radius: 4px 4px 0 0;
+      font-size: 14px; font-weight: 500; margin-bottom: 15px; padding: 15px;
+      border-bottom: 1px solid var(--gray-300); display: flex; justify-content: space-between;
+      align-items: center; background-color: var(--white); border-radius: 4px 4px 0 0;
     }
-
     .board-title {
-      margin: 0;
-      cursor: pointer;
-      flex-grow: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding-right: 5px;
-      color: var(--primary-dark);
-      font-weight: 500;
-      letter-spacing: 0;
+      margin: 0; cursor: pointer; flex-grow: 1; overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap; padding-right: 5px;
+      color: var(--primary-dark); font-weight: 500; letter-spacing: 0;
     }
-
     .task-count {
-      background-color: var(--white);
-      color: var(--primary);
-      border-radius: 3px;
-      min-width: 26px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      flex-shrink: 0;
-      margin-left: 5px;
-      font-weight: 500;
-      border: 1px solid var(--gray-300);
+      background-color: var(--white); color: var(--primary); border-radius: 3px;
+      min-width: 26px; height: 20px; display: flex; align-items: center;
+      justify-content: center; font-size: 12px; flex-shrink: 0;
+      margin-left: 5px; font-weight: 500; border: 1px solid var(--gray-300);
+    }
+    .column-actions { display: flex; margin-left: 5px; }
+    .edit-column-btn, .delete-column-btn {
+      background: none; border: none; cursor: pointer; font-size: 12px;
+      padding: 3px; opacity: 0.7; transition: all 0.2s; color: var(--accent-hover);
+      width: 20px; height: 20px; display: flex; align-items: center;
+      justify-content: center; border-radius: 50%;
+    }
+    .edit-column-btn:hover, .delete-column-btn:hover {
+      opacity: 1; color: var(--primary-dark); background-color: var(--gray-200);
+    }
+    .task-list { min-height: 100px; padding: 0 10px; }
+
+    /* Archive Column Specific Styles */
+    .board.archive-column {
+        /* Optional: slightly different background for the whole archive column if desired */
+        /* background-color: var(--gray-200); */ 
+    }
+    .board.archive-column .task-list {
+        max-height: 700px; /* Or your preferred height */
+        overflow-y: auto;
+        background-color: var(--gray-100); /* Can match column bg or be slightly different */
+        padding-right: 5px; /* Space for scrollbar */
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) var(--gray-200);
+    }
+    .board.archive-column .task-list::-webkit-scrollbar {
+        width: var(--scrollbar-height);
+    }
+    .board.archive-column .task-list::-webkit-scrollbar-track {
+        background: var(--gray-200);
+        border-radius: 10px;
+    }
+    .board.archive-column .task-list::-webkit-scrollbar-thumb {
+        background-color: var(--accent);
+        border-radius: 10px;
     }
 
-    .column-actions {
-      display: flex;
-      margin-left: 5px;
-    }
 
-    .edit-column-btn, 
-    .delete-column-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 12px;
-      padding: 3px;
-      opacity: 0.7;
-      transition: all 0.2s;
-      color: var(--accent-hover);
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .edit-column-btn:hover, 
-    .delete-column-btn:hover {
-      opacity: 1;
-      color: var(--primary-dark);
-      background-color: var(--gray-200);
-    }
-
-    .task-list {
-      min-height: 100px;
-      padding: 0 10px;
-    }
-
-    /* --------- Task Items --------- */
     .task-item {
-      background-color: var(--white);
-      padding: 14px;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      box-shadow: var(--card-shadow);
-      cursor: grab;
-      transition: all 0.2s;
-      position: relative;
-      border-left: 3px solid var(--primary);
+      background-color: var(--white); padding: 14px; border-radius: 4px;
+      margin-bottom: 15px; box-shadow: var(--card-shadow); cursor: grab;
+      transition: all 0.2s; position: relative; border-left: 3px solid var(--primary);
     }
-
-    #column-progress .task-item {
-      border-left-color: var(--secondary);
-    }
-
-    #column-done .task-item {
-      border-left-color: var(--accent);
-    }
-
     .task-item:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transform: translateY(-2px);
     }
-
-    .task-item:hover .task-order-actions {
-      opacity: 1;
-    }
-
-    .task-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
+    .task-item:hover .task-order-actions { opacity: 1; }
+    .task-item.dragging { opacity: 0.5; }
+    .task-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
     .task-title {
-      font-weight: 500;
-      word-break: break-word;
-      color: var(--primary-dark);
-      font-size: 14px;
+      font-weight: 500; word-break: break-word; color: var(--primary-dark); font-size: 14px;
     }
-
     .task-content {
-      word-break: break-word;
-      font-size: 13px;
-      margin-bottom: 12px;
-      color: var(--secondary-dark);
+      word-break: break-word; font-size: 13px; margin-bottom: 12px; color: var(--secondary-dark);
     }
-
     .task-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--accent-hover);
-      border-top: 1px solid var(--gray-200);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--accent-hover); border-top: 1px solid var(--gray-200);
       padding-top: 10px;
     }
-
-    .task-due-date {
-      display: inline-block;
-    }
-
-    .task-due-date.overdue {
-      color: #a58b8b;
-      font-weight: 500;
-    }
-
-    .task-due-date.due-today {
-      color: #a59d8b;
-      font-weight: 500;
-    }
-
+    .task-due-date { display: inline-block; }
+    .task-due-date.overdue { color: #a58b8b; font-weight: 500; }
+    .task-due-date.due-today { color: #a59d8b; font-weight: 500; }
     .task-order-actions {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      display: flex;
-      gap: 5px;
-      opacity: 0;
-      transition: opacity 0.2s;
+      position: absolute; right: 8px; bottom: 8px; display: flex;
+      gap: 5px; opacity: 0; transition: opacity 0.2s;
     }
-
-    .move-up-btn, 
-    .move-down-btn {
-      background-color: var(--white);
-      color: var(--primary);
-      border: 1px solid var(--gray-300);
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 10px;
+    .move-up-btn, .move-down-btn {
+      background-color: var(--white); color: var(--primary); border: 1px solid var(--gray-300);
+      width: 20px; height: 20px; border-radius: 4px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer;
+      transition: all 0.2s; font-size: 10px;
     }
-
-    #column-progress .move-up-btn, 
-    #column-progress .move-down-btn {
-      color: var(--secondary);
-    }
-
-    #column-done .move-up-btn, 
-    #column-done .move-down-btn {
-      color: var(--accent);
-    }
-
-    .move-up-btn:hover, 
-    .move-down-btn:hover {
-      background-color: var(--gray-200);
-    }
-
-    .task-actions {
-      display: flex;
-      gap: 5px;
-    }
-
-    .edit-btn, 
-    .delete-btn {
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 12px;
-      padding: 2px;
-      border-radius: 2px;
-      color: var(--accent-hover);
+    .move-up-btn:hover, .move-down-btn:hover { background-color: var(--gray-200); }
+    .task-actions { display: flex; gap: 5px; }
+    .edit-btn, .delete-btn {
+      border: none; background: none; cursor: pointer; font-size: 12px;
+      padding: 2px; border-radius: 2px; color: var(--accent-hover);
       transition: all 0.2s;
     }
+    .edit-btn:hover { color: var(--primary); }
+    .delete-btn:hover { color: #a58b8b; }
 
-    .edit-btn:hover {
-      color: var(--primary);
-    }
-
-    .delete-btn:hover {
-      color: #a58b8b;
-    }
-
-    /* --------- Modals --------- */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
+      display: none; position: fixed; z-index: 1; left: 0; top: 0;
+      width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(2px);
     }
-
     .modal-content {
-      background-color: var(--white);
-      margin: 10% auto;
-      padding: 25px 30px;
-      border-radius: 6px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      border: 1px solid var(--gray-300);
+      background-color: var(--white); margin: 10% auto; padding: 25px 30px;
+      border-radius: 6px; max-width: 500px; width: 100%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); border: 1px solid var(--gray-300);
     }
-
     .modal-content h2 {
-      color: var(--primary-dark);
-      margin-bottom: 20px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 18px;
-      letter-spacing: 0;
+      color: var(--primary-dark); margin-bottom: 20px; font-family: 'Inter', sans-serif;
+      font-weight: 500; font-size: 18px; letter-spacing: 0;
     }
-
     .close {
-      color: var(--accent-hover);
-      float: right;
-      font-size: 28px;
-      font-weight: 300;
-      cursor: pointer;
-      transition: all 0.2s;
-      line-height: 0.8;
+      color: var(--accent-hover); float: right; font-size: 28px;
+      font-weight: 300; cursor: pointer; transition: all 0.2s; line-height: 0.8;
     }
+    .close:hover { color: var(--primary-dark); }
 
-    .close:hover {
-      color: var(--primary-dark);
-    }
-
-    .hide {
-      display: none;
-    }
-
-    /* --------- Forms --------- */
     label {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--secondary-dark);
-      font-size: 14px;
+      display: block; margin-bottom: 5px; color: var(--secondary-dark); font-size: 14px;
     }
-
-    input, 
-    textarea, 
-    select {
-      width: 100%;
-      padding: 10px 12px;
-      margin-bottom: 20px;
-      border: 1px solid var(--gray-300);
-      border-radius: 4px;
-      background-color: var(--white);
-      color: var(--primary-dark);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
+    input, textarea, select {
+      width: 100%; padding: 10px 12px; margin-bottom: 20px;
+      border: 1px solid var(--gray-300); border-radius: 4px;
+      background-color: var(--white); color: var(--primary-dark);
+      font-family: 'Inter', sans-serif; font-size: 14px;
     }
-
-    input:focus, 
-    textarea:focus, 
-    select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: var(--focus-shadow);
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--primary); box-shadow: var(--focus-shadow);
     }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .color-picker {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
+    textarea { resize: vertical; min-height: 80px; }
+    .color-picker { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
     .color-option {
-      width: 30px;
-      height: 30px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      width: 30px; height: 30px; border-radius: 4px; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
-
-    .color-option:hover {
-      transform: scale(1.1);
-    }
-
-    .color-option.selected {
-      border: 2px solid var(--primary);
-      transform: scale(1.1);
-    }
-
+    .color-option:hover { transform: scale(1.1); }
+    .color-option.selected { border: 2px solid var(--primary); transform: scale(1.1); }
     .submit-btn {
-      padding: 10px 22px;
-      background-color: var(--primary);
-      color: var(--white);
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      transition: all 0.3s;
+      padding: 10px 22px; background-color: var(--primary); color: var(--white);
+      border: none; border-radius: 4px; cursor: pointer; font-family: 'Inter', sans-serif;
+      font-weight: 500; font-size: 14px; transition: all 0.3s;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
-
     .submit-btn:hover {
-      background-color: var(--primary-dark);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      background-color: var(--primary-dark); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     }
-
-    /* --------- Drag and Drop --------- */
-    .dragging {
-      opacity: 0.5;
-    }
-
-    /* --------- File Input --------- */
-    .file-input-container {
-      display: inline-block; /* Keep it simple */
-    }
-
-    .file-input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-      pointer-events: none; /* This ensures it doesn't interfere with clicks */
-    }
-
-    #file-name {
-      margin-top: 5px;
-      font-size: 13px;
-      color: var(--secondary-dark);
-    }
-
-    /* --------- Add Column Button --------- */
+    .dragging { opacity: 0.5; }
+    .file-input { display: none; }
     .add-column-btn-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-width: 260px;
-      max-width: 260px;
-      height: 150px;
-      background-color: var(--primary-light);
-      border: 1px dashed var(--gray-400);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--accent-hover);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      min-width: 260px; max-width: 260px; height: 150px;
+      background-color: var(--primary-light); border: 1px dashed var(--gray-400);
+      border-radius: 4px; cursor: pointer; transition: all 0.2s; color: var(--accent-hover);
     }
-
     .add-column-btn-container:hover {
-      background-color: var(--white);
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: var(--card-shadow);
+      background-color: var(--white); border-color: var(--primary);
+      transform: translateY(-2px); box-shadow: var(--card-shadow);
     }
-
     .add-column-btn-container::before {
-      content: "+";
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: var(--accent-hover);
-      display: block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      border-radius: 50%;
-      background-color: var(--white);
+      content: "+"; font-size: 20px; margin-bottom: 10px; color: var(--accent-hover);
+      display: block; width: 40px; height: 40px; line-height: 40px;
+      text-align: center; border-radius: 50%; background-color: var(--white);
       border: 1px solid var(--gray-300);
     }
-
-    /* --------- Footer --------- */
-    footer {
+    footer { 
       text-align: center;
-      margin-top: 30px;
       padding: 20px;
-      color: var(--accent-hover);
-      font-size: 11px;
+      background-color: var(--white);
       border-top: 1px solid var(--gray-300);
-    }
-
-    footer a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    footer a:hover {
-      color: var(--primary-dark);
-    }
-
-    #current-file {
-      color: var(--accent-hover);
       font-size: 12px;
+      color: var(--accent-hover);
+      margin-top: 20px; 
     }
+    footer a { color: var(--primary); text-decoration: none; transition: all 0.2s; }
+    footer a:hover { color: var(--primary-dark); }
 
-    /* --------- Responsive Styles --------- */
     @media (max-width: 768px) {
-      .header-container {
-        flex-direction: column;
-        align-items: flex-start;
+      .controls .btn, .controls .dropdown {
+        flex-grow: 1; 
+        min-width: 120px; 
+        margin-bottom: 8px; 
       }
-      
-      .controls {
-        margin-top: 15px;
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .file-info {
-        margin-top: 10px;
-        margin-left: 0;
-      }
-      
       .boards-container {
-        flex-direction: column;
-        overflow-x: visible;
+        gap: 15px; 
       }
-      
       .board, 
       .add-column-btn-container {
-        min-width: 100%;
-        max-width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 0; 
       }
-      
-      .btn {
-        flex-grow: 1;
-        max-width: 200px;
-        margin: 5px;
+      .boards-container > .add-column-btn-container:not(:last-child) {
+          margin-bottom: 15px; 
       }
     }
   </style>
@@ -740,23 +370,37 @@
     </div>
     
     <div class="controls">
+      <div class="dropdown">
+        <button class="btn dropdown-btn" id="boards-dropdown-btn">Boards ▾</button> 
+        <div class="dropdown-content" id="boards-dropdown-content">
+          <div id="board-list-container"></div>
+          <hr>
+          <a href="#" class="dropdown-item" id="create-new-board-btn">Create New Board</a>
+          <a href="#" class="dropdown-item" id="rename-board-btn">Rename Current Board</a>
+          <a href="#" class="dropdown-item" id="delete-board-btn">Delete Current Board</a>
+        </div>
+      </div>
+
       <button class="btn add-task-btn" id="add-task-btn">+ Task</button>
       <button class="btn add-column-btn" id="add-column-modal-btn">+ Column</button>
-      <div class="file-input-container">
-        <button class="btn import-btn" id="import-btn">Import</button>
-        <input type="file" id="import-file" class="file-input" accept=".json" style="position: absolute; opacity: 0; pointer-events: none;">
+      
+      <div class="dropdown">
+        <button class="btn dropdown-btn" id="file-dropdown-btn">File ▾</button> 
+        <div class="dropdown-content align-right" id="file-dropdown-content">
+          <a href="#" class="dropdown-item" id="import-boards-btn">Import Board(s)</a>
+          <input type="file" id="import-file-input" class="file-input" accept=".json">
+          <a href="#" class="dropdown-item" id="export-active-board-btn">Export Active Board</a>
+          <a href="#" class="dropdown-item" id="export-all-boards-btn">Export All Boards</a>
+        </div>
       </div>
-      <button class="btn export-btn" id="export-btn">Export</button>
       <button class="btn help-btn" id="help-btn" onclick="window.location.href='kanbi-help.html'">Help</button>
-      <div class="file-info" id="current-file">Current file: kanbi-data.json</div>
     </div>
+    <div class="active-board-display" id="active-board-display">Active Board: ...</div>
   </div>
   
   <div class="boards-container" id="boards-container">
-    <!-- Boards will be generated here -->
-  </div>
+    </div>
   
-  <!-- Task Modal -->
   <div id="task-modal" class="modal">
     <div class="modal-content">
       <span class="close" data-modal="task-modal">&times;</span>
@@ -766,8 +410,7 @@
         <input type="hidden" id="task-order" value="">
         <label for="task-column">Column:</label>
         <select id="task-column" required></select>
-        <label for="task-title">Title:</label>
-        <input type="text" id="task-title" required>
+        <label for="task-title-input">Title:</label> <input type="text" id="task-title-input" required> 
         <label for="task-description">Description:</label>
         <textarea id="task-description"></textarea>
         <label for="task-due-date">Due Date:</label>
@@ -777,7 +420,6 @@
     </div>
   </div>
   
-  <!-- Column Modal (Preset Colors Only) -->
   <div id="column-modal" class="modal">
     <div class="modal-content">
       <span class="close" data-modal="column-modal">&times;</span>
@@ -785,8 +427,7 @@
       <form id="column-form">
         <input type="hidden" id="column-id" value="">
         <input type="hidden" id="column-order" value="">
-        <label for="column-title">Column Title:</label>
-        <input type="text" id="column-title" required>
+        <label for="column-title-input">Column Title:</label> <input type="text" id="column-title-input" required>
         <label>Column Color:</label>
         <div class="color-picker" id="column-color-picker">
           <div class="color-option selected" data-color="#ECECEC" style="background-color: #ECECEC;"></div>
@@ -804,304 +445,578 @@
     </div>
   </div>
   
-  <!-- Status Message -->
   <div id="status-msg" class="status-msg"></div>
   
-  <!-- Footer -->
   <footer>
-    <div id="current-file" class="file-name"></div>
-    Kanbi by John W. Little &copy; 2025 • Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
+    KANBI by John W. Little &copy; 2025 • Licensed under <a href="https://opensource.org/license/apache-2-0" target="_blank">Apache 2.0</a>
   </footer>
   
   <script>
     /**
      * KANBI - A simple Kanban board application
      * Allows users to create tasks, organize them in columns,
-     * and save/load board data using localStorage and JSON export/import.
+     * manage multiple boards, and save/load board data using localStorage and JSON export/import.
      */
     
     // --- Core Data Structures and State Management ---
-    let boardData = {
-      columns: [],
-      tasks: []
+    const KANBI_STORAGE_KEY = 'kanbi-global-data';
+    const OLD_KANBI_STORAGE_KEY = 'kanbi-board-data'; // For migration
+    const ARCHIVE_COLUMN_TITLE = "Archived"; // Define a constant for the archive column title
+    const ARCHIVE_COLUMN_COLOR = "var(--gray-200)"; // Define a color for the archive column
+
+
+    let kanbiGlobalData = {
+      meta: {
+        activeBoardId: null,
+        nextBoardIdSuffix: 0, 
+      },
+      boards: {} 
     };
     
-    let currentFilename = 'kanbi-data.json';
-    let autoSave = true;
-    
     // --- Utility Functions ---
-    
-    /**
-     * Generates a unique ID with a prefix
-     * @param {string} prefix - Prefix to add to the ID
-     * @return {string} The generated unique ID
-     */
     function generateId(prefix) {
       return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
     }
-    
-    /**
-     * Displays a status message to the user
-     * @param {string} message - Message to display
-     * @param {boolean} isError - Whether this is an error message
-     */
+
     function showStatusMessage(message, isError = false) {
       const statusMsg = document.getElementById('status-msg');
       statusMsg.textContent = message;
-      
+      statusMsg.className = 'status-msg'; 
       if (isError) {
         statusMsg.classList.add('error-msg');
-      } else {
-        statusMsg.classList.remove('error-msg');
       }
-      
       statusMsg.style.opacity = '1';
       setTimeout(() => {
         statusMsg.style.opacity = '0';
       }, 3000);
     }
-    
-    /**
-     * Updates the current filename display
-     */
-    function updateCurrentFilename() {
-      document.getElementById('current-file').textContent = `Current file: ${currentFilename}`;
+
+    function updateActiveBoardDisplay() {
+        const activeBoard = getActiveBoardData();
+        const displayElement = document.getElementById('active-board-display');
+        if (activeBoard && activeBoard.name) {
+            displayElement.textContent = `Active Board: ${activeBoard.name}`;
+        } else {
+            displayElement.textContent = 'No active board';
+        }
     }
     
     // --- Data Management Functions ---
-    
-    /**
-     * Initializes board with default columns if no data exists
-     */
-    function initializeDefaultBoard() {
-      boardData = {
-        columns: [
-          { id: 'column-todo', title: 'Todo', color: '#ECECEC', order: 0 },
-          { id: 'column-progress', title: 'In Progress', color: '#E1F5FE', order: 1 },
-          { id: 'column-done', title: 'Done', color: '#D0F0C0', order: 2 }
-        ],
-        tasks: []
-      };
-    }
-    
-    /**
-     * Loads board data from localStorage
-     */
-    function loadBoardData() {
-      const savedData = localStorage.getItem('kanbi-board-data');
-      
-      if (savedData) {
-        try {
-          boardData = JSON.parse(savedData);
-          
-          // Ensure tasks have order property
-          boardData.tasks.forEach((task, index) => {
-            if (task.order === undefined) {
-              task.order = index;
-            }
-          });
-          
-          // Ensure columns have color and order properties
-          boardData.columns.forEach((column, index) => {
-            if (!column.color) {
-              column.color = '#1A1B26';
-            }
-            if (column.order === undefined) {
-              column.order = index;
-            }
-          });
-        } catch (e) {
-          console.error('Error parsing saved data:', e);
-          initializeDefaultBoard();
+
+    function getActiveBoardData() {
+        if (kanbiGlobalData.meta.activeBoardId && kanbiGlobalData.boards[kanbiGlobalData.meta.activeBoardId]) {
+            return kanbiGlobalData.boards[kanbiGlobalData.meta.activeBoardId];
         }
-      } else {
-        initializeDefaultBoard();
-      }
-      
-      renderBoard();
-      updateCurrentFilename();
+        return null; 
     }
     
-    /**
-     * Saves board data to localStorage and triggers export if autoSave is true
-     */
-    function saveBoardData() {
-      localStorage.setItem('kanbi-board-data', JSON.stringify(boardData));
-      showStatusMessage('Board saved successfully');
-      
-      if (autoSave) {
-        exportBoardData(true);
-      }
+    function createArchiveColumnObject(boardId) {
+        const activeBoard = kanbiGlobalData.boards[boardId];
+        let maxOrder = -1;
+        if (activeBoard && activeBoard.columns && activeBoard.columns.length > 0) {
+             maxOrder = activeBoard.columns.reduce((max, col) => Math.max(max, col.order), -1);
+        }
+
+        return {
+            id: `column-archive-${boardId || generateId('newboard')}`, // Ensure boardId is part of ID
+            title: ARCHIVE_COLUMN_TITLE,
+            color: ARCHIVE_COLUMN_COLOR, 
+            order: maxOrder + 1, // Ensure it's the last column
+            isArchive: true // Special flag
+        };
+    }
+
+
+    function initializeDefaultKANBI() { 
+        const defaultBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+        kanbiGlobalData.boards = {
+            [defaultBoardId]: {
+                id: defaultBoardId,
+                name: 'My First Board',
+                columns: [
+                    { id: 'column-todo-' + defaultBoardId, title: 'Todo', color: '#ECECEC', order: 0 },
+                    { id: 'column-progress-' + defaultBoardId, title: 'In Progress', color: '#E1F5FE', order: 1 },
+                    { id: 'column-done-' + defaultBoardId, title: 'Done', color: '#D0F0C0', order: 2 },
+                    createArchiveColumnObject(defaultBoardId) // Add archive column
+                ],
+                tasks: []
+            }
+        };
+         // Re-calculate order for archive column if default columns changed
+        const defaultBoard = kanbiGlobalData.boards[defaultBoardId];
+        const archiveCol = defaultBoard.columns.find(col => col.isArchive);
+        if (archiveCol) {
+            let maxOrder = -1;
+            defaultBoard.columns.forEach(col => {
+                if (!col.isArchive) maxOrder = Math.max(maxOrder, col.order);
+            });
+            archiveCol.order = maxOrder + 1;
+        }
+
+        kanbiGlobalData.meta.activeBoardId = defaultBoardId;
+        saveGlobalData();
     }
     
-    // --- Export and Import Functions ---
-    
-/**
- * Exports the board data as a JSON file
- * @param {boolean} silent - Whether to trigger the download silently
- * @return {string} The filename of the exported file
- */
-function exportBoardData(silent = false) {
-  // Get current date in a more readable format
-  const now = new Date();
-  
-  // Format date as YYYY-MM-DD
-  const formattedDate = `${now.getFullYear()}-${(now.getMonth()+1)
-    .toString().padStart(2, '0')}-${now.getDate()
-    .toString().padStart(2, '0')}`;
-  
-  // Also include hours and minutes for differentiation
-  const formattedTime = `${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
-  
-  // Create filename with both date and time in a clean format
-  const filename = `KANBI_Board_${formattedDate}_${formattedTime}.json`;
-  currentFilename = filename;
-  updateCurrentFilename();
-  
-  const dataStr = JSON.stringify(boardData, null, 2);
-  const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-  
-  let linkElement = document.getElementById('export-link');
-  if (!linkElement) {
-    linkElement = document.createElement('a');
-    linkElement.id = 'export-link';
-    linkElement.style.display = 'none';
-    document.body.appendChild(linkElement);
-  }
-  
-  linkElement.setAttribute('href', dataUri);
-  linkElement.setAttribute('download', filename);
-  linkElement.click();
-  
-  showStatusMessage(`Board exported as "${filename}"`);
-  return filename;
-}
-    
-    /**
-     * Imports board data from a JSON file
-     * @param {Event} e - The file input change event
-     */
-    function importBoard(e) {
-      const file = e.target.files[0];
-      
-      if (file) {
-        currentFilename = file.name;
-        updateCurrentFilename();
+    function migrateOldData(oldData) {
+        const defaultBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+        oldData.columns = oldData.columns || [];
+        oldData.tasks = oldData.tasks || [];
+
+        oldData.columns.forEach(col => col.id = generateId('col'));
+        oldData.tasks.forEach(task => {
+            task.id = generateId('task');
+            const originalCol = oldData.columns.find(c => c.id === task.columnId); 
+            task.columnId = originalCol ? originalCol.id : (oldData.columns.length > 0 ? oldData.columns[0].id : null);
+        });
         
+        const newColumns = [...oldData.columns, createArchiveColumnObject(defaultBoardId)];
+
+
+        kanbiGlobalData.boards = {
+            [defaultBoardId]: {
+                id: defaultBoardId,
+                name: 'Imported Board', 
+                columns: newColumns,
+                tasks: oldData.tasks
+            }
+        };
+        kanbiGlobalData.meta.activeBoardId = defaultBoardId;
+        localStorage.removeItem(OLD_KANBI_STORAGE_KEY); 
+        showStatusMessage('Old board data migrated and Archive column added.', false);
+    }
+
+    function loadGlobalData() {
+        const savedGlobalData = localStorage.getItem(KANBI_STORAGE_KEY);
+        const oldSavedData = localStorage.getItem(OLD_KANBI_STORAGE_KEY);
+
+        if (savedGlobalData) {
+            try {
+                kanbiGlobalData = JSON.parse(savedGlobalData);
+                kanbiGlobalData.meta = kanbiGlobalData.meta || { activeBoardId: null, nextBoardIdSuffix: 0 };
+                kanbiGlobalData.boards = kanbiGlobalData.boards || {};
+                if (kanbiGlobalData.meta.nextBoardIdSuffix === undefined) kanbiGlobalData.meta.nextBoardIdSuffix = Object.keys(kanbiGlobalData.boards).length;
+
+                // Ensure all loaded boards have an archive column
+                Object.values(kanbiGlobalData.boards).forEach(board => {
+                    if (!board.columns.find(col => col.isArchive || col.title === ARCHIVE_COLUMN_TITLE)) {
+                        let maxOrder = -1;
+                        if (board.columns && board.columns.length > 0) {
+                            maxOrder = board.columns.reduce((max, col) => Math.max(max, col.order), -1);
+                        }
+                        const archiveCol = createArchiveColumnObject(board.id);
+                        archiveCol.order = maxOrder + 1; // Ensure it's last for existing boards too
+                        board.columns.push(archiveCol);
+                        console.log(`Added archive column to existing board: ${board.name}`);
+                    }
+                });
+
+
+                if (!kanbiGlobalData.meta.activeBoardId || !kanbiGlobalData.boards[kanbiGlobalData.meta.activeBoardId]) {
+                    const boardIds = Object.keys(kanbiGlobalData.boards);
+                    if (boardIds.length > 0) {
+                        kanbiGlobalData.meta.activeBoardId = boardIds[0];
+                    } else {
+                        initializeDefaultKANBI(); 
+                    }
+                }
+            } catch (e) {
+                console.error('Error parsing saved KANBI global data:', e);
+                initializeDefaultKANBI();
+            }
+        } else if (oldSavedData) {
+            try {
+                const oldData = JSON.parse(oldSavedData);
+                migrateOldData(oldData); // migrateOldData now adds archive column
+            } catch (e) {
+                console.error('Error parsing old board data for migration:', e); 
+                initializeDefaultKANBI();
+            }
+        } else {
+            initializeDefaultKANBI();
+        }
+        
+        populateBoardSwitcher();
+        renderActiveBoard();
+        updateActiveBoardDisplay();
+    }
+
+    function saveGlobalData() {
+        localStorage.setItem(KANBI_STORAGE_KEY, JSON.stringify(kanbiGlobalData));
+        showStatusMessage('All changes saved to browser.'); 
+        updateActiveBoardDisplay(); 
+    }
+
+    // --- Board Management ---
+    function setActiveBoard(boardId) {
+        if (kanbiGlobalData.boards[boardId]) {
+            kanbiGlobalData.meta.activeBoardId = boardId;
+            saveGlobalData(); 
+            renderActiveBoard();
+            populateBoardSwitcher(); 
+            updateActiveBoardDisplay();
+        } else {
+            showStatusMessage(`Board with ID ${boardId} not found.`, true); 
+        }
+    }
+
+    function createNewBoard() {
+        const boardName = prompt("Enter the name for the new board:", "New Board"); 
+        if (!boardName || boardName.trim() === "") {
+            showStatusMessage("Board creation cancelled or invalid name.", true); 
+            return;
+        }
+
+        const newBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+        kanbiGlobalData.boards[newBoardId] = {
+            id: newBoardId,
+            name: boardName.trim(),
+            columns: [ 
+                { id: generateId('col'), title: 'To Do', color: '#ECECEC', order: 0 },
+                { id: generateId('col'), title: 'In Progress', color: '#E1F5FE', order: 1 },
+                { id: generateId('col'), title: 'Done', color: '#D0F0C0', order: 2 },
+                createArchiveColumnObject(newBoardId) // Add archive column
+            ],
+            tasks: []
+        };
+        // Ensure archive column is last after adding defaults
+        const newBoard = kanbiGlobalData.boards[newBoardId];
+        const archiveCol = newBoard.columns.find(col => col.isArchive);
+        if (archiveCol) {
+            let maxOrder = -1;
+            newBoard.columns.forEach(col => {
+                if (!col.isArchive) maxOrder = Math.max(maxOrder, col.order);
+            });
+            archiveCol.order = maxOrder + 1;
+        }
+
+        setActiveBoard(newBoardId); 
+    }
+
+    function renameActiveBoard() {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) {
+            showStatusMessage("No active board to rename.", true); 
+            return;
+        }
+        const newName = prompt("Enter the new name for the board:", activeBoard.name); 
+        if (newName && newName.trim() !== "") {
+            activeBoard.name = newName.trim();
+            saveGlobalData();
+            populateBoardSwitcher(); 
+            renderActiveBoard(); 
+            updateActiveBoardDisplay();
+        } else {
+            showStatusMessage("Board rename cancelled or invalid name.", true); 
+        }
+    }
+
+    function deleteActiveBoard() {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) {
+            showStatusMessage("No active board to delete.", true); 
+            return;
+        }
+
+        const boardIds = Object.keys(kanbiGlobalData.boards);
+        if (boardIds.length <= 1) {
+            if (confirm(`This is your last board. Deleting it will reset to a new default board. Continue?`)) { 
+                 delete kanbiGlobalData.boards[activeBoard.id];
+                 initializeDefaultKANBI(); 
+            } else {
+                showStatusMessage("Board deletion cancelled.", false); 
+                return;
+            }
+        } else {
+            if (confirm(`Are you sure you want to delete the board "${activeBoard.name}"? This action cannot be undone.`)) { 
+                delete kanbiGlobalData.boards[activeBoard.id];
+                const remainingBoardIds = Object.keys(kanbiGlobalData.boards);
+                kanbiGlobalData.meta.activeBoardId = remainingBoardIds.length > 0 ? remainingBoardIds[0] : null;
+                
+                if (!kanbiGlobalData.meta.activeBoardId) { 
+                    initializeDefaultKANBI();
+                } else {
+                   setActiveBoard(kanbiGlobalData.meta.activeBoardId);
+                }
+            } else {
+                 showStatusMessage("Board deletion cancelled.", false); 
+                 return;
+            }
+        }
+    }
+
+
+    // --- Export and Import Functions ---
+    function exportData(data, defaultFilename) {
+        const now = new Date();
+        const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+        const formattedTime = `${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+        
+        let filename = defaultFilename.replace('YYYY-MM-DD', formattedDate).replace('HHMM', formattedTime);
+        
+        const activeBoard = getActiveBoardData();
+        if (defaultFilename.includes('[BoardName]') && activeBoard) {
+            const boardNameSafe = activeBoard.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            filename = filename.replace('[BoardName]', boardNameSafe);
+        } else {
+            filename = filename.replace('_[BoardName]', ''); 
+        }
+
+        const dataStr = JSON.stringify(data, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+        let linkElement = document.getElementById('export-link');
+        if (!linkElement) {
+            linkElement = document.createElement('a');
+            linkElement.id = 'export-link';
+            linkElement.style.display = 'none';
+            document.body.appendChild(linkElement);
+        }
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', filename);
+        linkElement.click();
+        showStatusMessage(`Board data exported as "${filename}"`); 
+    }
+
+    function exportActiveBoardData() {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) {
+            showStatusMessage("No active board to export.", true); 
+            return;
+        }
+        const exportableBoardData = {
+            type: "kanbi-single-board", 
+            board: activeBoard
+        };
+        exportData(exportableBoardData, 'KANBI_Board_[BoardName]_YYYY-MM-DD_HHMM.json'); 
+    }
+
+    function exportAllBoardsData() {
+        if (Object.keys(kanbiGlobalData.boards).length === 0) {
+            showStatusMessage("No boards to export.", true); 
+            return;
+        }
+         const exportableAllBoardsData = {
+            type: "kanbi-all-boards", 
+            boards: kanbiGlobalData.boards,
+            meta: { nextBoardIdSuffix: kanbiGlobalData.meta.nextBoardIdSuffix } 
+        };
+        exportData(exportableAllBoardsData, 'KANBI_All_Boards_YYYY-MM-DD_HHMM.json'); 
+    }
+
+    function importBoardData(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
         const reader = new FileReader();
         reader.onload = function(event) {
-          try {
-            const importedData = JSON.parse(event.target.result);
-            
-            if (!importedData) {
-              throw new Error('Invalid JSON data');
+            try {
+                const importedJson = JSON.parse(event.target.result);
+
+                if (importedJson && importedJson.type === "kanbi-all-boards" && importedJson.boards) {
+                    if (confirm("This will replace ALL current boards and data. Are you sure?")) { 
+                        kanbiGlobalData.boards = importedJson.boards;
+                        kanbiGlobalData.meta.nextBoardIdSuffix = (importedJson.meta && importedJson.meta.nextBoardIdSuffix !== undefined) 
+                                                                ? importedJson.meta.nextBoardIdSuffix
+                                                                : Object.keys(importedJson.boards).length;
+
+                        // Ensure imported boards also get an archive column if they don't have one
+                        Object.values(kanbiGlobalData.boards).forEach(board => {
+                            if (!board.columns.find(col => col.isArchive || col.title === ARCHIVE_COLUMN_TITLE)) {
+                                 let maxOrder = -1;
+                                if (board.columns && board.columns.length > 0) {
+                                    maxOrder = board.columns.reduce((max, col) => Math.max(max, col.order), -1);
+                                }
+                                const archiveCol = createArchiveColumnObject(board.id);
+                                archiveCol.order = maxOrder + 1;
+                                board.columns.push(archiveCol);
+                            }
+                        });
+
+
+                        const boardIds = Object.keys(kanbiGlobalData.boards);
+                        kanbiGlobalData.meta.activeBoardId = boardIds.length > 0 ? boardIds[0] : null;
+                        
+                        if (!kanbiGlobalData.meta.activeBoardId && boardIds.length === 0) {
+                            initializeDefaultKANBI(); 
+                        } else {
+                           saveGlobalData();
+                           loadGlobalData(); // This will re-render and re-populate everything
+                        }
+                        showStatusMessage('All boards imported successfully.'); 
+                    } else {
+                        showStatusMessage('Import cancelled.'); 
+                    }
+                } else if (importedJson && importedJson.type === "kanbi-single-board" && importedJson.board) {
+                    const importedBoard = importedJson.board;
+                    // Ensure imported single board gets an archive column if it doesn't have one
+                     if (!importedBoard.columns.find(col => col.isArchive || col.title === ARCHIVE_COLUMN_TITLE)) {
+                        let maxOrder = -1;
+                        if (importedBoard.columns && importedBoard.columns.length > 0) {
+                           maxOrder = importedBoard.columns.reduce((max, col) => Math.max(max, col.order), -1);
+                        }
+                        const archiveCol = createArchiveColumnObject(importedBoard.id || generateId('importedboard')); // Use existing ID or generate
+                        archiveCol.order = maxOrder + 1;
+                        importedBoard.columns.push(archiveCol);
+                    }
+
+                    const importAsNew = confirm(`Import "${importedBoard.name || 'this board'}" as a new board? (Cancel to replace current active board)`); 
+                    if (importAsNew) {
+                        const newBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+                        importedBoard.id = newBoardId; 
+                        kanbiGlobalData.boards[newBoardId] = importedBoard;
+                        setActiveBoard(newBoardId);
+                    } else {
+                        const activeId = kanbiGlobalData.meta.activeBoardId;
+                        if (activeId && kanbiGlobalData.boards[activeId]) {
+                             importedBoard.id = activeId; 
+                             kanbiGlobalData.boards[activeId] = importedBoard;
+                             setActiveBoard(activeId); 
+                        } else { 
+                             const newBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+                             importedBoard.id = newBoardId;
+                             kanbiGlobalData.boards[newBoardId] = importedBoard;
+                             setActiveBoard(newBoardId);
+                        }
+                    }
+                    showStatusMessage(`Board "${importedBoard.name || 'untitled'}" imported.`); 
+                } else if (importedJson && importedJson.columns && importedJson.tasks !== undefined) { // Old format
+                    const boardName = prompt("Enter a name for the imported board:", file.name.replace('.json', '')); 
+                    if (boardName) {
+                        const newBoardId = `board-${kanbiGlobalData.meta.nextBoardIdSuffix++}`;
+                        const newColumns = [...(importedJson.columns || [])];
+                        let maxOrder = -1;
+                        if (newColumns.length > 0) {
+                           maxOrder = newColumns.reduce((max, col) => Math.max(max, col.order || 0), -1);
+                        }
+                        const archiveCol = createArchiveColumnObject(newBoardId);
+                        archiveCol.order = maxOrder + 1;
+                        newColumns.push(archiveCol);
+
+
+                        kanbiGlobalData.boards[newBoardId] = {
+                            id: newBoardId,
+                            name: boardName,
+                            columns: newColumns,
+                            tasks: importedJson.tasks || []
+                        };
+                        kanbiGlobalData.boards[newBoardId].columns.forEach((col, idx) => {
+                            col.id = col.id || generateId('col');
+                            col.order = col.order !== undefined ? col.order : idx;
+                            col.color = col.color || '#ECECEC';
+                        });
+                         kanbiGlobalData.boards[newBoardId].tasks.forEach((task, idx) => {
+                            task.id = task.id || generateId('task');
+                            task.order = task.order !== undefined ? task.order : idx;
+                            if (!kanbiGlobalData.boards[newBoardId].columns.find(c => c.id === task.columnId)) {
+                                task.columnId = kanbiGlobalData.boards[newBoardId].columns.length > 0 ? kanbiGlobalData.boards[newBoardId].columns[0].id : null;
+                            }
+                        });
+                        setActiveBoard(newBoardId);
+                        showStatusMessage(`Old format board imported as "${boardName}".`); 
+                    } else {
+                         showStatusMessage('Import cancelled.'); 
+                    }
+                } else {
+                    throw new Error('Unrecognized KANBI file format.'); 
+                }
+            } catch (err) {
+                console.error('Error importing KANBI file:', err); 
+                showStatusMessage('Error: ' + err.message, true);
+            } finally {
+                document.getElementById('import-file-input').value = '';
             }
-            
-            if (!importedData.columns) {
-              throw new Error('Missing columns data');
-            }
-            
-            if (!importedData.tasks) {
-              importedData.tasks = [];
-            }
-            
-            if (!Array.isArray(importedData.columns)) {
-              throw new Error('Columns must be an array');
-            }
-            
-            if (!Array.isArray(importedData.tasks)) {
-              throw new Error('Tasks must be an array');
-            }
-            
-            // Ensure proper order and color values
-            importedData.tasks.forEach((task, index) => {
-              if (task.order === undefined) {
-                task.order = index;
-              }
-            });
-            
-            importedData.columns.forEach((column, index) => {
-              if (!column.color) {
-                column.color = '#1A1B26';
-              }
-              if (column.order === undefined) {
-                column.order = index;
-              }
-            });
-            
-            boardData = importedData;
-            saveBoardData();
-            renderBoard();
-            showStatusMessage('Board imported successfully');
-          } catch (e) {
-            console.error('Error parsing imported file:', e);
-            showStatusMessage('Error: ' + e.message, true);
-          }
         };
-        
         reader.readAsText(file);
-      }
     }
     
     // --- UI Rendering Functions ---
-    
-    /**
-     * Renders the entire board UI with columns and tasks
-     */
-    function renderBoard() {
-      const boardsContainer = document.getElementById('boards-container');
-      boardsContainer.innerHTML = '';
-      
-      // Sort columns by order
-      const sortedColumns = [...boardData.columns].sort((a, b) => a.order - b.order);
-      
-      // Create column elements
-      sortedColumns.forEach(column => {
-        const columnElement = createColumnElement(column);
-        boardsContainer.appendChild(columnElement);
-      });
-      
-      // Add "Add Column" button
-      const addColumnBtnContainer = document.createElement('div');
-      addColumnBtnContainer.classList.add('add-column-btn-container');
-      addColumnBtnContainer.innerHTML = '<span>+ Add Column</span>';
-      addColumnBtnContainer.addEventListener('click', openColumnModal);
-      boardsContainer.appendChild(addColumnBtnContainer);
-      
-      // Populate tasks for each column
-      for (const column of boardData.columns) {
-        const tasksInColumn = boardData.tasks
-          .filter(task => task.columnId === column.id)
-          .sort((a, b) => a.order - b.order);
-        
-        // Ensure task orders are consecutive
-        tasksInColumn.forEach((task, index) => {
-          task.order = index;
-        });
-        
-        const columnTaskList = document.getElementById(`tasks-${column.id}`);
-        
-        if (columnTaskList) {
-          tasksInColumn.forEach(task => {
-            const taskElement = createTaskElement(task, tasksInColumn.length);
-            columnTaskList.appendChild(taskElement);
-          });
+    function renderActiveBoard() {
+        const boardsContainer = document.getElementById('boards-container');
+        boardsContainer.innerHTML = ''; 
+        const activeBoard = getActiveBoardData();
+
+        if (!activeBoard) {
+            boardsContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--secondary-dark);">No board selected or board data is empty. Create or select a board.</p>'; 
+            updateTaskCounts(); 
+            updateActiveBoardDisplay();
+            return;
         }
-      }
-      
-      updateTaskCounts();
+        
+        const sortedColumns = [...activeBoard.columns].sort((a, b) => a.order - b.order);
+        
+        sortedColumns.forEach(column => {
+            const columnElement = createColumnElement(column);
+            boardsContainer.appendChild(columnElement);
+        });
+
+        const addColumnBtnContainer = document.createElement('div');
+        addColumnBtnContainer.classList.add('add-column-btn-container');
+        addColumnBtnContainer.innerHTML = '<span>+ Add Column</span>';
+        addColumnBtnContainer.addEventListener('click', openColumnModal);
+        boardsContainer.appendChild(addColumnBtnContainer);
+
+        activeBoard.columns.forEach(column => {
+            const tasksInColumn = activeBoard.tasks
+                .filter(task => task.columnId === column.id)
+                .sort((a, b) => a.order - b.order);
+
+            tasksInColumn.forEach((task, index) => task.order = index); 
+
+            const columnTaskList = document.getElementById(`tasks-${column.id}`);
+            if (columnTaskList) { 
+                 columnTaskList.innerHTML = ''; 
+                 tasksInColumn.forEach(task => {
+                    const taskElement = createTaskElement(task, tasksInColumn.length);
+                    columnTaskList.appendChild(taskElement);
+                });
+            }
+        });
+        updateTaskCounts();
+        updateActiveBoardDisplay();
+    }
+
+    function populateBoardSwitcher() {
+        const boardListContainer = document.getElementById('board-list-container');
+        boardListContainer.innerHTML = ''; 
+
+        const boardIds = Object.keys(kanbiGlobalData.boards);
+
+        if (boardIds.length === 0) {
+            const noBoardsItem = document.createElement('span');
+            noBoardsItem.textContent = "No boards yet. Create one!"; 
+            noBoardsItem.style.padding = "10px 15px";
+            noBoardsItem.style.display = "block";
+            noBoardsItem.style.color = "var(--secondary-dark)";
+            boardListContainer.appendChild(noBoardsItem);
+        } else {
+            boardIds.forEach(boardId => {
+                const board = kanbiGlobalData.boards[boardId];
+                const boardItem = document.createElement('a');
+                boardItem.href = '#';
+                boardItem.classList.add('dropdown-item', 'board-name-item');
+                boardItem.textContent = board.name;
+                boardItem.dataset.boardId = boardId;
+                if (boardId === kanbiGlobalData.meta.activeBoardId) {
+                    boardItem.classList.add('active-board');
+                }
+                boardItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setActiveBoard(boardId);
+                    closeAllDropdowns();
+                });
+                boardListContainer.appendChild(boardItem);
+            });
+        }
     }
     
-    /**
-     * Creates a DOM element for a column
-     * @param {Object} column - The column data
-     * @return {HTMLElement} The column element
-     */
     function createColumnElement(column) {
       const columnElement = document.createElement('div');
-      columnElement.classList.add('board');
+      columnElement.classList.add('board'); 
       columnElement.id = column.id;
-      columnElement.style.backgroundColor = column.color;
+      if (column.isArchive) { // Add class if it's an archive column
+          columnElement.classList.add('archive-column');
+      }
+      columnElement.style.backgroundColor = column.color || '#ECECEC'; 
       columnElement.setAttribute('draggable', 'true');
       columnElement.dataset.order = column.order;
       
@@ -1117,134 +1032,188 @@ function exportBoardData(silent = false) {
         <div class="task-list" id="tasks-${column.id}" data-column-id="${column.id}"></div>
       `;
       
-      // Set up event listeners for column actions
-      columnElement.querySelector('.edit-column-btn').addEventListener('click', function() {
-        editColumn(column.id);
-      });
-      
-      columnElement.querySelector('.delete-column-btn').addEventListener('click', function() {
-        deleteColumn(column.id);
-      });
+      // Prevent editing title of archive column via the modal (it can still be deleted)
+      const editBtn = columnElement.querySelector('.edit-column-btn');
+      if (column.isArchive) {
+          editBtn.disabled = true;
+          editBtn.style.opacity = "0.3";
+          editBtn.style.cursor = "not-allowed";
+          columnElement.querySelector('.board-title').style.cursor = "default"; // Prevent title click
+      } else {
+          editBtn.addEventListener('click', () => editColumn(column.id));
+      }
+
+      columnElement.querySelector('.delete-column-btn').addEventListener('click', () => deleteColumn(column.id));
       
       const taskList = columnElement.querySelector('.task-list');
-      
-      // Set up drag and drop for tasks within columns
-      taskList.addEventListener('dragover', function(e) {
-        e.preventDefault();
-      });
-      
+      taskList.addEventListener('dragover', e => e.preventDefault());
       taskList.addEventListener('drop', function(e) {
         e.preventDefault();
         const taskId = e.dataTransfer.getData('text/plain');
-        const taskElement = document.getElementById(taskId);
-        
-        if (taskElement && this.appendChild) {
-          this.appendChild(taskElement);
-          const newColumnId = this.dataset.columnId;
-          const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
-          
-          if (taskIndex !== -1) {
-            const oldColumnId = boardData.tasks[taskIndex].columnId;
-            
-            if (oldColumnId !== newColumnId) {
-              const maxOrder = boardData.tasks
-                .filter(task => task.columnId === newColumnId)
-                .reduce((max, task) => Math.max(max, task.order), -1);
-                
-              boardData.tasks[taskIndex].columnId = newColumnId;
-              boardData.tasks[taskIndex].order = maxOrder + 1;
-              saveBoardData();
-              renderBoard();
+        const taskElement = document.getElementById(taskId); 
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard || !taskElement) return;
+
+        const taskData = activeBoard.tasks.find(t => t.id === taskId);
+        if (!taskData) return;
+
+        const targetColumnId = this.dataset.columnId;
+        const originalColumnId = taskData.columnId; 
+
+        if (taskData.columnId !== targetColumnId) { 
+            taskData.columnId = targetColumnId;
+            this.appendChild(taskElement);
+            resequenceTasksInColumn(targetColumnId); 
+            if (originalColumnId !== targetColumnId) { 
+                resequenceTasksInColumn(originalColumnId);
             }
-          }
+        } else {
+            const rect = this.getBoundingClientRect();
+            const offsetY = e.clientY - rect.top;
+            let beforeElement = null;
+            for (const child of this.children) {
+                if (child !== taskElement && e.clientY < child.offsetTop + child.offsetHeight / 2) {
+                    beforeElement = child;
+                    break;
+                }
+            }
+            this.insertBefore(taskElement, beforeElement);
+            resequenceTasksInColumn(targetColumnId); 
         }
+        
+        saveGlobalData();
+        renderActiveBoard(); 
       });
-      
-      // Set up drag and drop for reordering columns
-      columnElement.addEventListener('dragstart', function(e) {
-        if (e.target === this) {
-          e.dataTransfer.setData('column-id', column.id);
+
+      columnElement.addEventListener('dragstart', function(e) { 
+        if (e.target === this) { 
+          e.dataTransfer.setData('text/plain', column.id); 
+          e.dataTransfer.setData('type', 'column'); 
           this.classList.add('dragging');
+        } else {
+            e.stopPropagation(); 
         }
       });
+      columnElement.addEventListener('dragend', function() { this.classList.remove('dragging');});
       
-      columnElement.addEventListener('dragend', function() {
-        this.classList.remove('dragging');
+      columnElement.addEventListener('dragover', function(e) { 
+        e.preventDefault(); 
+        e.dataTransfer.dropEffect = 'move';
       });
-      
-      columnElement.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      });
-      
-      columnElement.addEventListener('drop', function(e) {
+      columnElement.addEventListener('dragleave', function(e) {});
+
+      columnElement.addEventListener('drop', function(e) { 
         e.preventDefault();
         e.stopPropagation();
         
-        const taskId = e.dataTransfer.getData('text/plain');
-        if (taskId) {
-          return;
-        }
-        
-        const draggedColumnId = e.dataTransfer.getData('column-id');
-        if (draggedColumnId && draggedColumnId !== column.id) {
-          const draggedColumn = boardData.columns.find(col => col.id === draggedColumnId);
-          const targetColumn = boardData.columns.find(col => col.id === column.id);
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+
+        const draggedItemId = e.dataTransfer.getData('text/plain'); 
+        const type = e.dataTransfer.getData('type');
+
+        if (type === 'column' && draggedItemId && draggedItemId !== this.id) {
+          const draggedColumn = activeBoard.columns.find(col => col.id === draggedItemId);
+          const targetColumn = activeBoard.columns.find(col => col.id === this.id);
           
           if (draggedColumn && targetColumn) {
+             // Prevent dragging Archive column before other columns if it's the Archive column
+            if (draggedColumn.isArchive && targetColumn.order < draggedColumn.order) {
+                showStatusMessage("Archive column must remain the last column.", true);
+                return;
+            }
+            // Prevent dragging another column after the Archive column
+            if (targetColumn.isArchive && draggedColumn.order < targetColumn.order) {
+                 showStatusMessage("Archive column must remain the last column.", true);
+                 return;
+            }
+
+
             const tempOrder = draggedColumn.order;
             draggedColumn.order = targetColumn.order;
-            targetColumn.order = tempOrder;
-            saveBoardData();
-            renderBoard();
+            
+            activeBoard.columns.forEach(col => {
+                if (col.id !== draggedColumnId && col.id !== targetColumn.id) { // Don't adjust target yet
+                    if (tempOrder < targetColumn.order && col.order > tempOrder && col.order <= targetColumn.order) {
+                        col.order--;
+                    } else if (tempOrder > targetColumn.order && col.order < tempOrder && col.order >= targetColumn.order) {
+                        col.order++;
+                    }
+                }
+            });
+             if (tempOrder < targetColumn.order) { // Dragged right
+                targetColumn.order = targetColumn.order; // No change, dragged takes its spot, others shifted
+            } else { // Dragged left
+                targetColumn.order = targetColumn.order; // No change, dragged takes its spot, others shifted
+            }
+
+
+            activeBoard.columns.sort((a, b) => a.order - b.order);
+            activeBoard.columns.forEach((col, index) => col.order = index);
+
+            // Ensure Archive column is always last again
+            const archiveCol = activeBoard.columns.find(c => c.isArchive);
+            if (archiveCol) {
+                let maxOtherOrder = -1;
+                activeBoard.columns.forEach(c => {
+                    if (!c.isArchive) maxOtherOrder = Math.max(maxOtherOrder, c.order);
+                });
+                if (archiveCol.order <= maxOtherOrder) { // If archive is not last, fix it
+                    activeBoard.columns = activeBoard.columns.filter(c => !c.isArchive);
+                    activeBoard.columns.sort((a,b) => a.order - b.order);
+                    archiveCol.order = activeBoard.columns.length;
+                    activeBoard.columns.push(archiveCol);
+                    activeBoard.columns.forEach((col, index) => col.order = index); // Re-normalize
+                }
+            }
+
+
+            saveGlobalData();
+            renderActiveBoard();
           }
         }
       });
-      
       return columnElement;
     }
     
-    /**
-     * Creates a DOM element for a task
-     * @param {Object} task - The task data
-     * @param {number} columnTaskCount - Total number of tasks in the column
-     * @return {HTMLElement} The task element
-     */
     function createTaskElement(task, columnTaskCount) {
       const taskElement = document.createElement('div');
       taskElement.classList.add('task-item');
       taskElement.setAttribute('draggable', 'true');
       taskElement.id = task.id;
       
-    // Format due date for display
-    let dueDateDisplay = '';
-    let isDueToday = false;
-    let isOverdue = false;
+      let dueDateDisplay = '';
+      let isDueToday = false;
+      let isOverdue = false;
 
-    if (task.dueDate) {
-    // Fix timezone issue by parsing the date properly
-    // Add time component to ensure date is interpreted correctly
-    const dueDateStr = task.dueDate + 'T12:00:00';
-    const dueDate = new Date(dueDateStr);
-  
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-  
-    // Create a date object for comparison that's timezone-adjusted
-    const adjustedDueDate = new Date(dueDate);
-    adjustedDueDate.setHours(0, 0, 0, 0);
-  
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    dueDateDisplay = dueDate.toLocaleDateString(undefined, options);
-  
-    isDueToday = adjustedDueDate.getTime() === today.getTime();
-    isOverdue = adjustedDueDate < today;
-  }
+      if (task.dueDate) {
+        const dueDateStr = task.dueDate + 'T12:00:00'; 
+        const dueDate = new Date(dueDateStr);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const adjustedDueDate = new Date(dueDate); 
+        adjustedDueDate.setHours(0, 0, 0, 0);
+
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        dueDateDisplay = dueDate.toLocaleDateString(undefined, options);
+        isDueToday = adjustedDueDate.getTime() === today.getTime();
+        isOverdue = adjustedDueDate < today;
+      }
       
       const dueDateClass = isOverdue ? 'overdue' : (isDueToday ? 'due-today' : '');
       const dueDatePrefix = isOverdue ? '⚠️ Due: ' : (isDueToday ? '⏰ Due Today: ' : 'Due: ');
       
-      // Build task HTML
+      const activeBoard = getActiveBoardData();
+      let taskBorderColor = 'var(--primary)'; 
+      if (activeBoard && task.columnId) {
+          const column = activeBoard.columns.find(c => c.id === task.columnId);
+          if (column && column.color) { 
+              taskBorderColor = column.color;
+          }
+      }
+      taskElement.style.borderLeftColor = taskBorderColor;
+
+
       taskElement.innerHTML = `
         <div class="task-header">
           <div class="task-title">${task.title}</div>
@@ -1253,7 +1222,7 @@ function exportBoardData(silent = false) {
             <button class="delete-btn" data-id="${task.id}">🗑️</button>
           </div>
         </div>
-        <div class="task-content">${task.description}</div>
+        <div class="task-content">${task.description || ''}</div>
         <div class="task-footer">
           ${task.dueDate ? `<span class="task-due-date ${dueDateClass}">${dueDatePrefix}${dueDateDisplay}</span>` : ''}
           <div class="task-order-actions">
@@ -1263,380 +1232,347 @@ function exportBoardData(silent = false) {
         </div>
       `;
       
-      // Set up drag and drop for tasks
       taskElement.addEventListener('dragstart', function(e) {
-        e.dataTransfer.setData('text/plain', task.id);
+        e.dataTransfer.setData('text/plain', task.id); 
+        e.dataTransfer.setData('type', 'task'); 
+        const activeBoard = getActiveBoardData();
+        if(activeBoard) {
+            const taskData = activeBoard.tasks.find(t => t.id === task.id);
+            if(taskData) taskData.originalColumnIdForDrop = taskData.columnId; 
+        }
         this.classList.add('dragging');
       });
-      
-      taskElement.addEventListener('dragend', function() {
-        this.classList.remove('dragging');
+      taskElement.addEventListener('dragend', function() { 
+        this.classList.remove('dragging'); 
+        const activeBoard = getActiveBoardData();
+           if(activeBoard) { 
+            const taskData = activeBoard.tasks.find(t => t.id === task.id);
+            if(taskData && taskData.originalColumnIdForDrop) delete taskData.originalColumnIdForDrop;
+        }
       });
       
-      // Set up event listeners for task actions
-      taskElement.querySelector('.edit-btn').addEventListener('click', function() {
-        editTask(task.id);
-      });
+      taskElement.querySelector('.edit-btn').addEventListener('click', () => editTask(task.id));
+      taskElement.querySelector('.delete-btn').addEventListener('click', () => deleteTask(task.id));
       
-      taskElement.querySelector('.delete-btn').addEventListener('click', function() {
-        deleteTask(task.id);
-      });
-      
-      // Add event listeners for move up/down buttons if present
       const moveUpBtn = taskElement.querySelector('.move-up-btn');
-      if (moveUpBtn) {
-        moveUpBtn.addEventListener('click', function() {
-          moveTaskUp(task.id);
-        });
-      }
+      if (moveUpBtn) moveUpBtn.addEventListener('click', () => moveTaskUp(task.id));
       
       const moveDownBtn = taskElement.querySelector('.move-down-btn');
-      if (moveDownBtn) {
-        moveDownBtn.addEventListener('click', function() {
-          moveTaskDown(task.id);
-        });
-      }
+      if (moveDownBtn) moveDownBtn.addEventListener('click', () => moveTaskDown(task.id));
       
       return taskElement;
     }
-    
-    /**
-     * Updates the task count displays for all columns
-     */
-    function updateTaskCounts() {
-      boardData.columns.forEach(column => {
-        const tasksInColumn = boardData.tasks.filter(task => task.columnId === column.id).length;
-        const countElement = document.getElementById(`count-${column.id}`);
-        
-        if (countElement) {
-          countElement.textContent = tasksInColumn;
-        }
-      });
-    }
-    
-    // --- Task and Column Operations ---
-    
-    /**
-     * Opens the task modal for adding a new task
-     */
-    function openTaskModal() {
-      const taskModal = document.getElementById('task-modal');
-      const columnSelect = document.getElementById('task-column');
-      
-      // Reset form fields
-      document.getElementById('task-modal-title').textContent = 'Add New Task';
-      document.getElementById('task-id').value = '';
-      document.getElementById('task-order').value = '';
-      document.getElementById('task-title').value = '';
-      document.getElementById('task-description').value = '';
-      document.getElementById('task-due-date').value = '';
-      
-      // Populate column dropdown
-      columnSelect.innerHTML = '';
-      boardData.columns.forEach(column => {
-        const option = document.createElement('option');
-        option.value = column.id;
-        option.textContent = column.title;
-        columnSelect.appendChild(option);
-      });
-      
-      if (boardData.columns.length > 0) {
-        columnSelect.value = boardData.columns[0].id;
-      }
-      
-      taskModal.style.display = 'block';
-    }
-    
-    /**
-     * Opens the column modal for adding a new column
-     */
-    function openColumnModal() {
-      const columnModal = document.getElementById('column-modal');
-      
-      // Reset form fields
-      document.getElementById('column-modal-title').textContent = 'Add New Column';
-      document.getElementById('column-id').value = '';
-      document.getElementById('column-order').value = '';
-      document.getElementById('column-title').value = '';
-      
-      // Reset color picker selection to default
-      document.querySelectorAll('.color-option').forEach(option => {
-        option.classList.remove('selected');
-        if (option.dataset.color === '#ECECEC') {
-          option.classList.add('selected');
-        }
-      });
-      
-      columnModal.style.display = 'block';
-    }
-    
-    /**
-     * Saves a task (new or edited)
-     * @param {Event} e - The form submit event
-     */
-    function saveTask(e) {
-      e.preventDefault();
-      
-      const taskId = document.getElementById('task-id').value || generateId('task');
-      const columnId = document.getElementById('task-column').value;
-      const title = document.getElementById('task-title').value;
-      const description = document.getElementById('task-description').value;
-      const dueDate = document.getElementById('task-due-date').value;
-      
-      const existingTaskIndex = boardData.tasks.findIndex(task => task.id === taskId);
-      
-      if (existingTaskIndex !== -1) {
-        // Update existing task
-        const oldColumnId = boardData.tasks[existingTaskIndex].columnId;
-        
-        boardData.tasks[existingTaskIndex] = {
-          ...boardData.tasks[existingTaskIndex],
-          title,
-          description,
-          dueDate,
-          columnId
-        };
-        
-        // Update order if column changed
-        if (oldColumnId !== columnId) {
-          const maxOrder = boardData.tasks
-            .filter(task => task.columnId === columnId)
-            .reduce((max, task) => Math.max(max, task.order), -1);
-            
-          boardData.tasks[existingTaskIndex].order = maxOrder + 1;
-        }
-      } else {
-        // Create new task
-        const maxOrder = boardData.tasks
-          .filter(task => task.columnId === columnId)
-          .reduce((max, task) => Math.max(max, task.order), -1);
-          
-        boardData.tasks.push({
-          id: taskId,
-          columnId,
-          title,
-          description,
-          dueDate,
-          order: maxOrder + 1
-        });
-      }
-      
-      saveBoardData();
-      renderBoard();
-      document.getElementById('task-modal').style.display = 'none';
-    }
-    
-    /**
-     * Saves a column (new or edited)
-     * @param {Event} e - The form submit event
-     */
-    function saveColumn(e) {
-      e.preventDefault();
-      
-      const columnId = document.getElementById('column-id').value || generateId('column');
-      const title = document.getElementById('column-title').value;
-      
-      // Get the color from the selected preset option
-      const colorOption = document.querySelector('.color-option.selected');
-      const color = colorOption ? colorOption.dataset.color : '#ECECEC';
-      
-      const existingColumnIndex = boardData.columns.findIndex(column => column.id === columnId);
-      
-      if (existingColumnIndex !== -1) {
-        // Update existing column
-        boardData.columns[existingColumnIndex].title = title;
-        boardData.columns[existingColumnIndex].color = color;
-      } else {
-        // Create new column
-        const maxOrder = boardData.columns.length > 0 
-          ? boardData.columns.reduce((max, column) => Math.max(max, column.order), -1) 
-          : -1;
-          
-        boardData.columns.push({
-          id: columnId,
-          title,
-          color,
-          order: maxOrder + 1
-        });
-      }
-      
-      saveBoardData();
-      renderBoard();
-      document.getElementById('column-modal').style.display = 'none';
-    }
-    
-    /**
-     * Prepares the task modal for editing an existing task
-     * @param {string} taskId - ID of the task to edit
-     */
-    function editTask(taskId) {
-      const task = boardData.tasks.find(task => task.id === taskId);
-      
-      if (task) {
-        document.getElementById('task-modal-title').textContent = 'Edit Task';
-        document.getElementById('task-id').value = task.id;
-        document.getElementById('task-order').value = task.order;
-        document.getElementById('task-title').value = task.title;
-        document.getElementById('task-description').value = task.description;
-        
-        if (task.dueDate) {
-          document.getElementById('task-due-date').value = task.dueDate;
+
+    function resequenceTasksInColumn(columnId) {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard || !activeBoard.tasks) return;
+
+        const columnTaskListElement = document.getElementById(`tasks-${columnId}`);
+        if (columnTaskListElement) {
+            const taskElements = Array.from(columnTaskListElement.children);
+            taskElements.forEach((el, index) => {
+                const taskData = activeBoard.tasks.find(t => t.id === el.id);
+                if (taskData) {
+                    taskData.order = index;
+                }
+            });
         } else {
-          document.getElementById('task-due-date').value = '';
+            const tasksInCol = activeBoard.tasks
+                .filter(t => t.columnId === columnId)
+                .sort((a, b) => a.order - b.order);
+            tasksInCol.forEach((t, index) => t.order = index);
         }
-        
-        // Populate column dropdown
+    }
+
+    function updateTaskCounts() {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard || !activeBoard.columns) { 
+             document.querySelectorAll('.task-count').forEach(el => el.textContent = '0'); 
+            return;
+        }
+
+        activeBoard.columns.forEach(column => {
+            const tasksInColumn = activeBoard.tasks.filter(task => task.columnId === column.id).length;
+            const countElement = document.getElementById(`count-${column.id}`);
+            if (countElement) {
+                countElement.textContent = tasksInColumn;
+            }
+        });
+    }
+    
+    function openTaskModal() {
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard || activeBoard.columns.length === 0) {
+            showStatusMessage("Please create a column first before adding a task to your board.", true); 
+            return;
+        }
+        const taskModal = document.getElementById('task-modal');
         const columnSelect = document.getElementById('task-column');
+        
+        document.getElementById('task-modal-title').textContent = 'Add New Task';
+        document.getElementById('task-id').value = '';
+        document.getElementById('task-title-input').value = '';
+        document.getElementById('task-description').value = '';
+        document.getElementById('task-due-date').value = '';
+        
         columnSelect.innerHTML = '';
-        
-        boardData.columns.forEach(column => {
-          const option = document.createElement('option');
-          option.value = column.id;
-          option.textContent = column.title;
-          columnSelect.appendChild(option);
+        activeBoard.columns.forEach(column => {
+            if (column.isArchive) return; // Don't allow adding tasks directly to archive column
+            const option = document.createElement('option');
+            option.value = column.id;
+            option.textContent = column.title;
+            columnSelect.appendChild(option);
         });
-        
-        columnSelect.value = task.columnId;
-        document.getElementById('task-modal').style.display = 'block';
-      }
+        // Default to first non-archive column if available
+        const firstNonArchiveCol = activeBoard.columns.find(col => !col.isArchive);
+        if (firstNonArchiveCol) {
+            columnSelect.value = firstNonArchiveCol.id;
+        } else if (activeBoard.columns.length > 0 && !activeBoard.columns[0].isArchive) {
+             columnSelect.value = activeBoard.columns[0].id;
+        } else {
+            // Handle case where only archive column might exist or no suitable default
+            showStatusMessage("No suitable column to add tasks. Please create a non-archive column.", true);
+            taskModal.style.display = 'none';
+            return;
+        }
+        taskModal.style.display = 'block';
     }
-    
-    /**
-     * Prepares the column modal for editing an existing column
-     * @param {string} columnId - ID of the column to edit
-     */
-    function editColumn(columnId) {
-      const column = boardData.columns.find(column => column.id === columnId);
-      
-      if (column) {
-        document.getElementById('column-modal-title').textContent = 'Edit Column';
-        document.getElementById('column-id').value = column.id;
-        document.getElementById('column-order').value = column.order;
-        document.getElementById('column-title').value = column.title;
-        
-        // Update preset color selection
-        let colorFound = false;
+
+    function openColumnModal() {
+        const columnModal = document.getElementById('column-modal');
+        document.getElementById('column-modal-title').textContent = 'Add New Column';
+        document.getElementById('column-id').value = '';
+        document.getElementById('column-title-input').value = '';
         document.querySelectorAll('.color-option').forEach(option => {
-          option.classList.remove('selected');
-          if (option.dataset.color === column.color) {
-            option.classList.add('selected');
-            colorFound = true;
-          }
+            option.classList.remove('selected');
+            if (option.dataset.color === '#ECECEC') option.classList.add('selected');
         });
-        
-        // Default to first color if not found
-        if (!colorFound && document.querySelectorAll('.color-option').length > 0) {
-          document.querySelectorAll('.color-option')[0].classList.add('selected');
+        columnModal.style.display = 'block';
+    }
+
+    function saveTask(e) {
+        e.preventDefault();
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+
+        const taskId = document.getElementById('task-id').value || generateId('task');
+        const columnId = document.getElementById('task-column').value;
+        const title = document.getElementById('task-title-input').value;
+        const description = document.getElementById('task-description').value;
+        const dueDate = document.getElementById('task-due-date').value;
+
+        const targetColumn = activeBoard.columns.find(col => col.id === columnId);
+        if (targetColumn && targetColumn.isArchive) {
+            showStatusMessage("Cannot add or move tasks directly to the Archive column via this form. Drag tasks instead.", true);
+            return;
+        }
+
+
+        const existingTaskIndex = activeBoard.tasks.findIndex(task => task.id === taskId);
+        if (existingTaskIndex !== -1) { 
+            const oldColumnId = activeBoard.tasks[existingTaskIndex].columnId;
+            activeBoard.tasks[existingTaskIndex] = { 
+                ...activeBoard.tasks[existingTaskIndex], title, description, dueDate, columnId 
+            };
+            if (oldColumnId !== columnId) { 
+                resequenceTasksInColumn(oldColumnId); 
+                const tasksInNewCol = activeBoard.tasks.filter(t => t.columnId === columnId && t.id !== taskId);
+                activeBoard.tasks[existingTaskIndex].order = tasksInNewCol.length;
+            }
+        } else { 
+            const tasksInTargetCol = activeBoard.tasks.filter(task => task.columnId === columnId);
+            activeBoard.tasks.push({
+                id: taskId, columnId, title, description, dueDate,
+                order: tasksInTargetCol.length 
+            });
+        }
+        resequenceTasksInColumn(columnId); 
+        saveGlobalData();
+        renderActiveBoard();
+        document.getElementById('task-modal').style.display = 'none';
+    }
+
+    function saveColumn(e) {
+        e.preventDefault();
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+
+        const columnIdInput = document.getElementById('column-id').value;
+        const title = document.getElementById('column-title-input').value;
+        const colorOption = document.querySelector('.color-option.selected');
+        const color = colorOption ? colorOption.dataset.color : '#ECECEC';
+
+        if (title === ARCHIVE_COLUMN_TITLE && (!columnIdInput || !activeBoard.columns.find(c => c.id === columnIdInput && c.isArchive))) {
+             const existingArchive = activeBoard.columns.find(col => col.title === ARCHIVE_COLUMN_TITLE || col.isArchive);
+             if(existingArchive && existingArchive.id !== columnIdInput) {
+                showStatusMessage(`A column named "${ARCHIVE_COLUMN_TITLE}" or an archive column already exists. Please choose a different name.`, true);
+                return;
+             }
         }
         
-        document.getElementById('column-modal').style.display = 'block';
-      }
+        const columnId = columnIdInput || generateId('col');
+        const existingColumnIndex = activeBoard.columns.findIndex(col => col.id === columnId);
+
+        if (existingColumnIndex !== -1) { 
+            const existingColumn = activeBoard.columns[existingColumnIndex];
+            if (existingColumn.isArchive && title !== ARCHIVE_COLUMN_TITLE) {
+                showStatusMessage(`The "${ARCHIVE_COLUMN_TITLE}" column title cannot be changed.`, true);
+                return; // Prevent renaming archive column
+            }
+            existingColumn.title = title;
+            existingColumn.color = color;
+        } else { 
+            let maxOrder = -1;
+            const archiveCol = activeBoard.columns.find(c => c.isArchive);
+            if (archiveCol) { // If archive column exists, new column should be before it
+                maxOrder = archiveCol.order -1;
+                // Shift order of archive column
+                archiveCol.order++;
+            } else { // No archive column, new column is last
+                 maxOrder = activeBoard.columns.reduce((max, col) => Math.max(max, col.order), -1);
+            }
+            
+            activeBoard.columns.push({
+                id: columnId, title, color,
+                order: maxOrder + 1
+            });
+            // Re-sort and re-normalize orders
+            activeBoard.columns.sort((a,b) => a.order - b.order);
+            activeBoard.columns.forEach((c, i) => c.order = i);
+        }
+        saveGlobalData();
+        renderActiveBoard();
+        document.getElementById('column-modal').style.display = 'none';
     }
     
-    /**
-     * Deletes a task after confirmation
-     * @param {string} taskId - ID of the task to delete
-     */
+    function editTask(taskId) {
+        const activeBoard = getActiveBoardData();
+        const task = activeBoard ? activeBoard.tasks.find(t => t.id === taskId) : null;
+        if (task) {
+            document.getElementById('task-modal-title').textContent = 'Edit Task';
+            document.getElementById('task-id').value = task.id;
+            document.getElementById('task-title-input').value = task.title;
+            document.getElementById('task-description').value = task.description;
+            document.getElementById('task-due-date').value = task.dueDate || '';
+            
+            const columnSelect = document.getElementById('task-column');
+            columnSelect.innerHTML = '';
+            activeBoard.columns.forEach(column => {
+                if (column.isArchive) return; // Don't list archive column here
+                const option = document.createElement('option');
+                option.value = column.id;
+                option.textContent = column.title;
+                columnSelect.appendChild(option);
+            });
+            columnSelect.value = task.columnId;
+            document.getElementById('task-modal').style.display = 'block';
+        }
+    }
+
+    function editColumn(columnId) {
+        const activeBoard = getActiveBoardData();
+        const column = activeBoard ? activeBoard.columns.find(col => col.id === columnId) : null;
+        if (column) {
+            if (column.isArchive) {
+                showStatusMessage(`The "${ARCHIVE_COLUMN_TITLE}" column cannot be edited directly.`, true);
+                return;
+            }
+            document.getElementById('column-modal-title').textContent = 'Edit Column';
+            document.getElementById('column-id').value = column.id;
+            document.getElementById('column-title-input').value = column.title;
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.color === column.color) option.classList.add('selected');
+            });
+            if (!document.querySelector('.color-option.selected')) { 
+                 document.querySelectorAll('.color-option')[0].classList.add('selected');
+            }
+            document.getElementById('column-modal').style.display = 'block';
+        }
+    }
+
     function deleteTask(taskId) {
-      if (confirm('Are you sure you want to delete this task?')) {
-        boardData.tasks = boardData.tasks.filter(task => task.id !== taskId);
-        saveBoardData();
-        renderBoard();
-      }
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+        if (confirm('Are you sure you want to delete this task?')) {
+            const taskIndex = activeBoard.tasks.findIndex(t => t.id === taskId);
+            if (taskIndex > -1) {
+                const columnId = activeBoard.tasks[taskIndex].columnId;
+                activeBoard.tasks.splice(taskIndex, 1);
+                resequenceTasksInColumn(columnId);
+                saveGlobalData();
+                renderActiveBoard();
+            }
+        }
     }
-    
-    /**
-     * Deletes a column and optionally its tasks after confirmation
-     * @param {string} columnId - ID of the column to delete
-     */
+
     function deleteColumn(columnId) {
-      const tasksInColumn = boardData.tasks.filter(task => task.columnId === columnId);
-      
-      if (tasksInColumn.length > 0) {
-        if (!confirm(`This column contains ${tasksInColumn.length} task(s). Deleting it will also delete all tasks in this column. Continue?`)) {
-          return;
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+
+        const columnToDelete = activeBoard.columns.find(col => col.id === columnId);
+        if (columnToDelete && columnToDelete.isArchive) {
+            if (!confirm(`Are you sure you want to delete the "${ARCHIVE_COLUMN_TITLE}" column? All archived tasks in it will be permanently lost.`)){
+                return;
+            }
+        } else {
+            const tasksInColumn = activeBoard.tasks.filter(task => task.columnId === columnId).length;
+            const confirmMsg = tasksInColumn > 0 ? 
+                `This column contains ${tasksInColumn} task(s). Deleting it will also delete all tasks in this column. Continue?` :
+                'Are you sure you want to delete this column?';
+            if (!confirm(confirmMsg)) return;
         }
-      } else {
-        if (!confirm('Are you sure you want to delete this column?')) {
-          return;
-        }
-      }
-      
-      // Remove the column and its tasks
-      boardData.columns = boardData.columns.filter(column => column.id !== columnId);
-      boardData.tasks = boardData.tasks.filter(task => task.columnId !== columnId);
-      
-      // Reorder remaining columns
-      boardData.columns
-        .sort((a, b) => a.order - b.order)
-        .forEach((column, index) => {
-          column.order = index;
-        });
-        
-      saveBoardData();
-      renderBoard();
+
+
+        activeBoard.columns = activeBoard.columns.filter(col => col.id !== columnId);
+        activeBoard.tasks = activeBoard.tasks.filter(task => task.columnId !== columnId);
+        activeBoard.columns.sort((a,b) => a.order - b.order).forEach((col, idx) => col.order = idx);
+        saveGlobalData();
+        renderActiveBoard();
     }
-    
-    /**
-     * Moves a task up in order within its column
-     * @param {string} taskId - ID of the task to move
-     */
+
     function moveTaskUp(taskId) {
-      const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
-      
-      if (taskIndex !== -1) {
-        const task = boardData.tasks[taskIndex];
-        const currentOrder = task.order;
-        
-        if (currentOrder > 0) {
-          const tasksInSameColumn = boardData.tasks.filter(t => t.columnId === task.columnId);
-          const taskAbove = tasksInSameColumn.find(t => t.order === currentOrder - 1);
-          
-          if (taskAbove) {
-            task.order = currentOrder - 1;
-            taskAbove.order = currentOrder;
-            saveBoardData();
-            renderBoard();
-          }
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+        const taskIndex = activeBoard.tasks.findIndex(t => t.id === taskId);
+        if (taskIndex !== -1) {
+            const task = activeBoard.tasks[taskIndex];
+            if (task.order > 0) {
+                const taskAbove = activeBoard.tasks.find(t => t.columnId === task.columnId && t.order === task.order - 1);
+                if (taskAbove) {
+                    task.order--;
+                    taskAbove.order++;
+                    saveGlobalData();
+                    renderActiveBoard();
+                }
+            }
         }
-      }
     }
-    
-    /**
-     * Moves a task down in order within its column
-     * @param {string} taskId - ID of the task to move
-     */
+
     function moveTaskDown(taskId) {
-      const taskIndex = boardData.tasks.findIndex(task => task.id === taskId);
-      
-      if (taskIndex !== -1) {
-        const task = boardData.tasks[taskIndex];
-        const currentOrder = task.order;
-        const tasksInSameColumn = boardData.tasks.filter(t => t.columnId === task.columnId);
-        const taskBelow = tasksInSameColumn.find(t => t.order === currentOrder + 1);
-        
-        if (taskBelow) {
-          task.order = currentOrder + 1;
-          taskBelow.order = currentOrder;
-          saveBoardData();
-          renderBoard();
+        const activeBoard = getActiveBoardData();
+        if (!activeBoard) return;
+        const taskIndex = activeBoard.tasks.findIndex(t => t.id === taskId);
+         if (taskIndex !== -1) {
+            const task = activeBoard.tasks[taskIndex];
+            const tasksInSameColumn = activeBoard.tasks.filter(t => t.columnId === task.columnId);
+            if (task.order < tasksInSameColumn.length - 1) {
+                 const taskBelow = tasksInSameColumn.find(t => t.order === task.order + 1);
+                 if (taskBelow) {
+                    task.order++;
+                    taskBelow.order--;
+                    saveGlobalData();
+                    renderActiveBoard();
+                }
+            }
         }
-      }
     }
     
-    // --- Setup Color Picker ---
-    
-    /**
-     * Sets up the color picker for column creation/editing
-     */
     function setupColorPicker() {
       const colorOptions = document.querySelectorAll('.color-option');
-      
-      // Ensure one option is selected by default
       if (!document.querySelector('.color-option.selected') && colorOptions.length > 0) {
         colorOptions[0].classList.add('selected');
       }
-      
       colorOptions.forEach(option => {
         option.addEventListener('click', function() {
           colorOptions.forEach(opt => opt.classList.remove('selected'));
@@ -1644,47 +1580,69 @@ function exportBoardData(silent = false) {
         });
       });
     }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-content').forEach(content => content.style.display = 'none');
+    }
+
+    function setupDropdowns() {
+        document.querySelectorAll('.dropdown-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+                document.querySelectorAll('.dropdown-content').forEach(otherContent => {
+                    if (otherContent !== this.nextElementSibling) { 
+                        otherContent.style.display = 'none';
+                    }
+                });
+                const content = this.nextElementSibling; 
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropdown-btn') && !event.target.closest('.dropdown-content')) {
+                closeAllDropdowns();
+            }
+        });
+    }
     
-    // --- Event Listeners ---
-    
-    /**
-     * Sets up all event listeners for the application
-     */
     function setupEventListeners() {
       document.getElementById('add-task-btn').addEventListener('click', openTaskModal);
       document.getElementById('add-column-modal-btn').addEventListener('click', openColumnModal);
-      document.getElementById('export-btn').addEventListener('click', exportBoardData);
-      document.getElementById('import-file').addEventListener('change', importBoard);
-
-      // Add this line to fix the import button behavior
-      document.querySelector('.import-btn').addEventListener('click', function() {
-      document.getElementById('import-file').click();
-      });
       
-      // Set up modal close buttons
+      document.getElementById('create-new-board-btn').addEventListener('click', (e) => { e.preventDefault(); createNewBoard(); closeAllDropdowns(); });
+      document.getElementById('rename-board-btn').addEventListener('click', (e) => { e.preventDefault(); renameActiveBoard(); closeAllDropdowns(); });
+      document.getElementById('delete-board-btn').addEventListener('click', (e) => { e.preventDefault(); deleteActiveBoard(); closeAllDropdowns(); });
+
+      document.getElementById('import-boards-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('import-file-input').click(); 
+          closeAllDropdowns();
+      });
+      document.getElementById('import-file-input').addEventListener('change', importBoardData);
+      document.getElementById('export-active-board-btn').addEventListener('click', (e) => { e.preventDefault(); exportActiveBoardData(); closeAllDropdowns(); });
+      document.getElementById('export-all-boards-btn').addEventListener('click', (e) => { e.preventDefault(); exportAllBoardsData(); closeAllDropdowns(); });
+      
       document.querySelectorAll('.close').forEach(closeBtn => {
         closeBtn.addEventListener('click', function() {
           document.getElementById(this.dataset.modal).style.display = 'none';
         });
       });
       
-      // Close modal when clicking outside
       window.addEventListener('click', function(event) {
         if (event.target.classList.contains('modal')) {
           event.target.style.display = 'none';
         }
       });
       
-      // Set up form submissions
       document.getElementById('task-form').addEventListener('submit', saveTask);
       document.getElementById('column-form').addEventListener('submit', saveColumn);
       
       setupColorPicker();
+      setupDropdowns();
     }
     
-    // --- Initialize Application ---
     document.addEventListener('DOMContentLoaded', function() {
-      loadBoardData();
+      loadGlobalData(); 
       setupEventListeners();
     });
   </script>

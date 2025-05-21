@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KANBI: Help & Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap');
 
     /* --------- Core Variables --------- */
     :root {
-      /* Color Scheme */
+      /* Color Scheme (consistent with index.html) */
       --primary: #5c7ba6;
       --primary-light: #f7f9fc;
       --primary-dark: #3b4c65;
@@ -29,10 +31,10 @@
       --gray-400: #c2cad6;
       
       --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      --header-shadow: 0 2px 4px rgba(0,0,0,0.04); /* Matched from index.html */
       --focus-shadow: 0 0 0 2px rgba(92, 123, 166, 0.15);
       
-      --orange: #FF9800;
+      --orange: #FF9800; /* Keep for notes if still used */
       --orange-light: #FFF3E0;
     }
 
@@ -50,29 +52,31 @@
       background-color: var(--gray-100);
       background-image: linear-gradient(135deg, #f5f6fa 0%, #e6ecf3 100%);
       min-height: 100vh;
-      padding: 0;
+      padding: 20px; /* Added padding to body like index.html */
       margin: 0;
     }
 
     /* --------- Layout --------- */
-    .page-container {
+    .page-container { /* This class might not be strictly necessary if body has padding */
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      min-height: calc(100vh - 40px); /* Adjust if body padding is 20px */
     }
 
-    /* --------- Header --------- */
-    .header {
-      background-color: var(--white);
-      padding: 20px;
-      border-bottom: 1px solid var(--gray-300);
-      box-shadow: var(--header-shadow);
+    /* --------- Header (Updated to match index.html's .header-container) --------- */
+    .header { /* Re-styling existing header to match */
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--gray-300); /* Consistent with index.html border */
+      box-shadow: var(--header-shadow); 
+      margin-bottom: 20px; /* Spacing below header */
     }
 
-    .logo h1 {
+    .logo h1 { /* Copied from index.html for consistency */
       text-align: left;
       margin-bottom: 0;
       padding: 0;
@@ -83,10 +87,11 @@
       text-transform: uppercase;
       position: relative;
       display: inline-block;
+      line-height: 1.2;
     }
 
     .logo h1 .letter-a,
-    .logo h1 .letter-i {
+    .logo h1 .letter-i { /* Copied from index.html */
       color: #87CEEB;
     }
 
@@ -112,7 +117,7 @@
     }
 
     .back-btn:hover {
-      background-color: #E1F5FE;
+      background-color: #E1F5FE; /* Using a help-btn like hover from original index.html */
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
     }
@@ -121,11 +126,12 @@
     .main-content {
       flex: 1;
       max-width: 900px;
-      margin: 0 auto;
+      margin: 0 auto; /* Centered, margin-top handled by header's margin-bottom */
       padding: 40px 20px;
       background-color: var(--white);
-      box-shadow: var(--card-shadow);
-      border-radius: 0 0 8px 8px;
+      box-shadow: var(--card-shadow); /* Subtle 3D effect */
+      border-radius: 6px; /* Consistent rounding with header */
+      border: 1px solid var(--gray-300); /* Added border for consistency */
     }
 
     /* --------- Help Content Styling --------- */
@@ -162,21 +168,20 @@
       margin-bottom: 12px;
     }
 
-    .help-section p {
+    .help-section p, .help-section ol { /* Removed ul from this general rule to avoid conflicting margins */
       margin-bottom: 15px;
       line-height: 1.7;
       color: var(--primary-dark);
     }
-
-    .help-section ul,
+    
+    .help-section ul, /* Kept ul separate for more specific control if needed later */
     .help-section ol {
-      margin-bottom: 20px;
       padding-left: 25px;
+      margin-bottom: 15px; /* ensure ul also has this default if not overridden by .toc */
     }
 
     .help-section li {
-      margin-bottom: 10px;
-      line-height: 1.6;
+      margin-bottom: 10px; /* General li spacing */
     }
 
     .help-section code {
@@ -186,6 +191,21 @@
       font-family: monospace;
       font-size: 0.9em;
     }
+    
+    .help-section .important-note {
+        background-color: var(--orange-light);
+        border-left: 3px solid var(--orange);
+        padding: 10px 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+    }
+    .help-section .important-note p {
+        margin-bottom: 5px;
+    }
+     .help-section .important-note p:last-child {
+        margin-bottom: 0;
+    }
+
 
     /* Feature grid */
     .features-grid {
@@ -289,16 +309,27 @@
       font-size: 16px;
     }
 
-    .toc ul {
+    .toc ul { /* Main ToC list */
       list-style-type: none;
       padding-left: 0;
-      margin-bottom: 0;
+      margin-bottom: 0; /* Remove bottom margin from the main ul */
     }
 
-    .toc li {
-      margin-bottom: 8px;
+    .toc > ul > li { /* Top-level list items */
+      margin-bottom: 8px; /* Standard spacing for top-level items */
       font-size: 14px;
     }
+
+    .toc > ul > li > ul { /* Nested list (sub-items) */
+      margin-top: 8px;    /* <<< --- THIS IS THE KEY CHANGE: Adds space above the sub-list */
+      padding-left: 15px; /* Indent sub-items */
+      margin-bottom: 0px; /* Can be 0 or small, as parent li's margin-bottom handles larger gap */
+    }
+
+    .toc > ul > li > ul > li { /* Individual sub-list items */
+      margin-bottom: 5px; /* Tighter spacing for sub-items */
+    }
+
 
     .toc a {
       display: block;
@@ -313,33 +344,39 @@
     }
 
     /* --------- Footer --------- */
-    footer {
+    footer { 
       text-align: center;
       padding: 20px;
       background-color: var(--white);
       border-top: 1px solid var(--gray-300);
       font-size: 12px;
       color: var(--accent-hover);
+      margin-top: 20px; 
     }
 
     /* --------- Responsive Styles --------- */
     @media (max-width: 768px) {
-      .header {
+      body {
+        padding: 10px; 
+      }
+      .header { 
         padding: 15px;
         flex-direction: column;
         align-items: flex-start;
       }
       
-      .logo {
+      .logo { 
         margin-bottom: 10px;
       }
       
-      .back-btn {
-        align-self: flex-start;
+      .back-btn { 
+        align-self: flex-start; 
+        margin-top: 10px; 
       }
       
       .main-content {
         padding: 20px;
+        margin-top: 0; 
       }
       
       .features-grid {
@@ -361,8 +398,6 @@
   </style>
 </head>
 <body>
-  <div class="page-container">
-    <!-- Header -->
     <header class="header">
       <div class="logo">
         <h1>K<span class="letter-a">A</span>NB<span class="letter-i">I</span></h1>
@@ -370,11 +405,9 @@
       <button class="back-btn" onclick="window.location.href='index.html'">Back to KANBI</button>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
       <h1 class="help-title">KANBI Help & Documentation</h1>
       
-      <!-- Table of Contents -->
       <div class="toc">
         <h3>Contents</h3>
         <ul>
@@ -382,198 +415,241 @@
           <li><a href="#getting-started">Getting Started</a></li>
           <li><a href="#philosophy">Core Philosophy</a></li>
           <li><a href="#features">Features</a></li>
-          <li><a href="#usage">How to Use KANBI</a></li>
-          <li><a href="#limitations">Limitations & Workarounds</a></li>
+          <li><a href="#usage">How to Use KANBI</a>
+            <ul>
+                <li><a href="#managing-boards">Managing Multiple Boards</a></li>
+                <li><a href="#managing-columns">Managing Columns & Archiving</a></li>
+                <li><a href="#managing-tasks">Managing Tasks</a></li>
+                <li><a href="#data-storage">Data Storage & File Management</a></li>
+            </ul>
+          </li>
+          <li><a href="#limitations">Limitations & Considerations</a></li>
           <li><a href="#tips">Tips & Tricks</a></li>
-          <li><a href="#about-creator">About the Creator</a></li>
+          <li><a href="#about-creator">About the Creator & License</a></li>
         </ul>
       </div>
       
-      <!-- About Section -->
       <section id="about" class="help-section">
         <h2>About KANBI</h2>
-        <p>KANBI is a lightweight, no-bullshit Kanban board application designed for simplicity and efficiency. It helps you visualize your workflow, limit work-in-progress, and maximize productivity without the bloat of complex project management tools.</p>
+        <p>KANBI is a lightweight, no-bullshit Kanban board application designed for simplicity and efficiency. It helps you visualize your workflow, limit work-in-progress, and maximize productivity without the bloat of complex project management tools. Now with support for managing multiple boards and a simple way to archive completed tasks!</p>
         
         <div class="image-container">
-          <img src="images/example.jpg" alt="KANBI Board Example" />
+          <img src="images/example.jpg" alt="KANBI Board Example" /> 
           <figcaption>A typical KANBI board with tasks organized across columns</figcaption>
         </div>
       </section>
       
-      <!-- Getting Started Section -->
       <section id="getting-started" class="help-section">
         <h2>Getting Started</h2>
         <p>Getting up and running with KANBI is quick and straightforward:</p>
         
         <ol>
           <li><strong>Clone or download</strong> this repository. No dependencies or server required.</li>
-          <li><strong>Open</strong> <code>index.html</code> in your web browser</li>
-          <li>For the <strong>best experience</strong>, disable your browser's download confirmation popups:
+          <li><strong>Open</strong> <code>index.html</code> in your web browser.</li>
+          <li>Familiarize yourself with the controls in the header:
             <ul>
-              <li><strong>Chrome:</strong> Go to Settings → Downloads and turn off "Ask where to save each file before downloading"</li>
-              <li><strong>Firefox:</strong> Go to Settings/Preferences → General → Files and Applications and uncheck "Always ask you where to save files"</li>
-              <li><strong>Edge:</strong> Go to Settings → Downloads and turn off "Ask me what to do with each download"</li>
-              <li><strong>Safari:</strong> Go to Safari → Preferences → General and uncheck "Show downloads window when downloading files"</li>
+              <li><strong>Boards Dropdown:</strong> For creating, selecting, renaming, and deleting your KANBI boards.</li>
+              <li><strong>+ Task / + Column:</strong> For adding new tasks and columns to your active KANBI board.</li>
+              <li><strong>File Dropdown:</strong> For importing and exporting KANBI board data.</li>
+              <li><strong>Help:</strong> To view this documentation.</li>
             </ul>
           </li>
-          <li>Start organizing your tasks!</li>
+          <li>Each board includes a default "Archived" column. Drag completed tasks here to keep your active columns tidy. The task list within this "Archived" column will scroll vertically if it gets long.</li>
+          <li>Start organizing your tasks across multiple KANBI boards!</li>
         </ol>
         
         <div class="tips-list">
           <ul>
-            <li>KANBI saves your data automatically to your browser's local storage.</li>
-            <li>The "Export" button lets you save a backup of your board as a JSON file.</li>
-            <li>Start by creating a few tasks in the default columns, or customize your columns to match your workflow.</li>
+            <li>KANBI automatically saves all your boards and changes to your browser's local storage.</li>
+            <li>Use the "File" dropdown to manually "Export Active Board" or "Export All Boards" as JSON backup files.</li>
+            <li>Move tasks to the "Archived" column to keep your "Done" column clean and focused.</li>
           </ul>
         </div>
       </section>
       
-      <!-- Philosophy Section -->
       <section id="philosophy" class="help-section">
         <h2>Core Philosophy</h2>
         <p>KANBI's ethos is centered around minimalism and practicality. We believe productivity tools should get out of your way and let you focus on what matters. KANBI is designed to be straightforward, fast, and reliable.</p>
         
         <p>The application adheres to these core principles:</p>
         <ul>
-          <li><strong>Simplicity:</strong> No unnecessary features or complex configurations</li>
-          <li><strong>Speed:</strong> Optimized for performance, even on older devices</li>
-          <li><strong>Privacy:</strong> Your data stays on your device with local storage</li>
-          <li><strong>Flexibility:</strong> Customize your workflow without constraints</li>
-          <li><strong>Portability:</strong> Export and import your boards easily</li>
+          <li><strong>Simplicity:</strong> No unnecessary features or complex configurations.</li>
+          <li><strong>Speed:</strong> Optimized for performance.</li>
+          <li><strong>Privacy:</strong> Your data stays on your device with local storage.</li>
+          <li><strong>Flexibility:</strong> Customize your workflow and manage multiple projects.</li>
+          <li><strong>Portability:</strong> Export and import your KANBI board data easily.</li>
         </ul>
       </section>
       
-      <!-- Features Section -->
       <section id="features" class="help-section">
         <h2>Features</h2>
-        <p>KANBI provides all the essential features you need in a Kanban board, without unnecessary complexity:</p>
+        <p>KANBI provides essential features for effective Kanban board management:</p>
         
         <div class="features-grid">
           <div class="feature-card">
-            <h3>Customizable Columns</h3>
-            <p>Create, edit, and reorder columns to match your workflow</p>
+            <h3>Multiple Board Management</h3>
+            <p>Create, switch, rename, and delete multiple KANBI boards.</p>
           </div>
-          
+          <div class="feature-card">
+            <h3>Customizable Columns</h3>
+            <p>Create, edit, and reorder columns to match your workflow on each KANBI board. Includes a default scrollable "Archived" column.</p>
+          </div>
           <div class="feature-card">
             <h3>Task Management</h3>
-            <p>Add, edit, prioritize and move tasks between columns</p>
+            <p>Add, edit, prioritize and move tasks between columns, including an "Archived" column.</p>
           </div>
-          
           <div class="feature-card">
             <h3>Drag and Drop</h3>
-            <p>Intuitive interface for organizing your board</p>
+            <p>Intuitive interface for organizing columns and tasks.</p>
           </div>
-          
           <div class="feature-card">
             <h3>Due Dates</h3>
-            <p>Set and track deadlines with visual indicators</p>
+            <p>Set and track deadlines with visual indicators.</p>
           </div>
-          
           <div class="feature-card">
-            <h3>Data Persistence</h3>
-            <p>Automatic saving to local storage</p>
+            <h3>Persistent Local Storage</h3>
+            <p>All KANBI board data is automatically saved to your browser.</p>
           </div>
-          
           <div class="feature-card">
-            <h3>Import/Export</h3>
-            <p>Save and load your boards as JSON files</p>
+            <h3>Flexible Import/Export</h3>
+            <p>Save/load individual KANBI boards or all boards as JSON files.</p>
           </div>
-          
           <div class="feature-card">
             <h3>Responsive Design</h3>
-            <p>Works on desktop and mobile devices</p>
+            <p>Works on desktop and mobile devices.</p>
           </div>
-          
-          <div class="feature-card">
+           <div class="feature-card">
             <h3>Visual Customization</h3>
-            <p>Customize column colors to match your preferences</p>
+            <p>Customize column colors for each KANBI board.</p>
           </div>
         </div>
       </section>
       
-      <!-- Usage Section -->
       <section id="usage" class="help-section">
         <h2>How to Use KANBI</h2>
-        
-        <h3>Managing Columns</h3>
+
+        <h3 id="managing-boards">Managing Multiple Boards</h3>
+        <p>KANBI now allows you to manage several distinct Kanban boards. Use the "Boards" dropdown menu in the header:</p>
         <ul>
-          <li><strong>Add a Column:</strong> Click the "+ Column" button in the header or the "Add Column" box at the end of your board</li>
-          <li><strong>Edit a Column:</strong> Click the pencil icon (✏️) on a column to edit its title or color</li>
-          <li><strong>Reorder Columns:</strong> Drag columns horizontally to change their order</li>
-          <li><strong>Delete a Column:</strong> Click the trash icon (🗑️) on a column (this will delete all tasks in that column)</li>
+          <li><strong>Switch Boards:</strong> Click on a board name in the dropdown to make it active. The main area will update to show the selected KANBI board.</li>
+          <li><strong>Create New Board:</strong> Select "Create New Board." You'll be prompted to enter a name for your new KANBI board. It will then become the active board and will include default columns, including an "Archived" column.</li>
+          <li><strong>Rename Current Board:</strong> Select "Rename Current Board." You'll be prompted to enter a new name for the currently active KANBI board.</li>
+          <li><strong>Delete Current Board:</strong> Select "Delete Current Board." You'll be asked for confirmation.
+            <div class="important-note">
+                <p><strong>Caution:</strong> Deleting a KANBI board is permanent and will remove all its columns and tasks. If you delete your last remaining KANBI board, KANBI will automatically create a new default board for you.</p>
+            </div>
+          </li>
         </ul>
         
-        <h3>Managing Tasks</h3>
+        <h3 id="managing-columns">Managing Columns & Archiving</h3>
         <ul>
-          <li><strong>Add a Task:</strong> Click the "+ Task" button in the header</li>
-          <li><strong>Edit a Task:</strong> Click the pencil icon (✏️) on a task</li>
-          <li><strong>Move a Task:</strong> Drag tasks between columns to change their status</li>
-          <li><strong>Prioritize Tasks:</strong> Use the up/down arrows to reorder tasks within a column</li>
-          <li><strong>Delete a Task:</strong> Click the trash icon (🗑️) on a task</li>
+          <li><strong>Add a Column:</strong> Click the "+ Column" button in the header or the "Add Column" box at the end of your active KANBI board. New columns will be added before the "Archived" column.</li>
+          <li><strong>Edit a Column:</strong> Click the pencil icon (✏️) on a column to edit its title or color. The title of the default "Archived" column cannot be edited via the modal to preserve its special styling and behavior.</li>
+          <li><strong>Reorder Columns:</strong> Drag columns horizontally to change their order. The "Archived" column is designed to be the last column; reordering it before other active columns is not recommended for its intended use.</li>
+          <li><strong>Delete a Column:</strong> Click the trash icon (🗑️) on a column (this will delete all tasks in that column). The "Archived" column can also be deleted, but doing so will remove all tasks within it.</li>
+          <li><strong>The "Archived" Column:</strong>
+            <ul>
+              <li>Each board automatically includes an "Archived" column as the last column. This is where you can move tasks that are completed but you wish to keep for reference, helping to keep your main "Done" column from becoming overly long.</li>
+              <li>If the list of tasks in the "Archived" column exceeds its set maximum height (e.g., 700px), a vertical scrollbar will appear within that column's task list, allowing you to scroll through all archived items without making the entire board excessively tall.</li>
+            </ul>
+          </li>
+        </ul>
+        
+        <h3 id="managing-tasks">Managing Tasks (within the Active KANBI Board)</h3>
+        <ul>
+          <li><strong>Add a Task:</strong> Click the "+ Task" button in the header. The task will be added to the default first column of your active KANBI board (or your chosen column in the modal, excluding "Archived").</li>
+          <li><strong>Edit a Task:</strong> Click the pencil icon (✏️) on a task.</li>
+          <li><strong>Move a Task:</strong> Drag tasks between columns to change their status.</li>
+          <li><strong>Archive a Task:</strong> To archive a task (typically from a "Done" column), simply drag it into the "Archived" column.</li>
+          <li><strong>Unarchive a Task:</strong> To bring a task back to active status, drag it from the "Archived" column to any other column on your board (e.g., "To Do" or "In Progress").</li>
+          <li><strong>Prioritize Tasks:</strong> Use the up/down arrows (▲▼) on a task to reorder it within its current column.</li>
+          <li><strong>Delete a Task:</strong> Click the trash icon (🗑️) on a task.</li>
         </ul>
         
         <h3>Setting Due Dates</h3>
         <p>When creating or editing a task, you can set a due date. Tasks will display differently based on their due date status:</p>
         <ul>
-          <li><strong>Normal:</strong> Due dates in the future</li>
-          <li><strong>Due Today:</strong> Tasks due on the current day will show "⏰ Due Today" in amber</li>
-          <li><strong>Overdue:</strong> Tasks past their due date will show "⚠️ Due: [date]" in red</li>
+          <li><strong>Normal:</strong> Due dates in the future.</li>
+          <li><strong>Due Today:</strong> Tasks due on the current day will show "⏰ Due Today" in amber.</li>
+          <li><strong>Overdue:</strong> Tasks past their due date will show "⚠️ Due: [date]" in red.</li>
         </ul>
+
+        <h3 id="data-storage">Data Storage & File Management</h3>
+        <h4>Automatic Saving to Browser</h4>
+        <p>KANBI automatically saves all your boards, columns, and tasks (including those in the "Archived" column) to your browser's local storage. This means your data persists between sessions (even if you close the tab or browser) for that specific browser on your computer.</p>
         
-        <h3>Saving Your Work</h3>
+        <h4>Manual File Operations (via "File" Dropdown)</h4>
+        <p>For backups, sharing, or moving data between browsers/computers, use the "File" dropdown menu:</p>
         <ul>
-          <li><strong>Automatic Saving:</strong> KANBI automatically saves your board to your browser's local storage (usually the "Downloads" directory</li>
-          <li><strong>Manual Export:</strong> Click the "Export" button to save your board as a JSON file</li>
-          <li><strong>Importing:</strong> Click the "Import" button to load a previously exported board</li>
+          <li><strong>Import Board(s):</strong>
+            <ul>
+              <li>Allows you to load KANBI board data from a JSON file.</li>
+              <li>KANBI can import files from older single-board versions, single boards exported via "Export Active Board," or entire sets of boards from "Export All Boards." Imported boards will also receive an "Archived" column if they don't have one.</li>
+              <li>You may be prompted to import a single board as a new board or to replace your currently active KANBI board.</li>
+              <li>If importing an "All Boards" file, you'll be asked to confirm if you want to replace all your existing KANBI data.</li>
+            </ul>
+          </li>
+          <li><strong>Export Active Board:</strong>
+            <ul>
+              <li>Saves only the currently displayed KANBI board (including its "Archived" column and tasks) to a JSON file (e.g., <code>KANBI_Board_MyProject_2025-05-21_1030.json</code>).</li>
+            </ul>
+          </li>
+          <li><strong>Export All Boards:</strong>
+            <ul>
+              <li>Saves all your KANBI boards, their columns, tasks, and names (including all "Archived" columns and their contents) into a single JSON file (e.g., <code>KANBI_All_Boards_2025-05-21_1030.json</code>). This is recommended for comprehensive backups.</li>
+            </ul>
+          </li>
         </ul>
+        <p><strong>Note:</strong> The previous behavior of KANBI automatically creating a JSON file in your Downloads folder on every change has been removed. File exports are now always a manual action initiated by you. This helps reduce file clutter.</p>
       </section>
       
-      <!-- Limitations Section -->
       <section id="limitations" class="help-section">
-        <h2>Limitations & Workarounds</h2>
+        <h2>Limitations & Considerations</h2>
         
-        <h3>Single Board Limitation</h3>
-        <p>KANBI currently supports one board per browser. For multiple boards, simply clone the KANBI index.html file into different directories and use them as separate instances.</p>
+        <h3>Multiple Board Management</h3>
+        <p>KANBI now fully supports managing multiple boards within a single browser instance. Each KANBI board is self-contained with its own columns (including a default "Archived" column) and tasks.</p>
+
+        <h3>"Archived" Column Behavior</h3>
+        <p>The "Archived" column is a standard column with special styling for its task list (vertical scrolling). It still occupies horizontal space on your board. While tasks within it scroll, having an extremely large number of tasks in this column might eventually affect browser performance during initial load or filtering, though less so than if they were in a non-scrolling "Done" column.</p>
         
-        <h3>File Management</h3>
-        <p>Exporting creates new JSON files. Periodically clean up your downloads folder to avoid clutter. You may want to create a dedicated folder for your KANBI board exports.</p>
+        <h3>File Management & Backups</h3>
+        <p>While KANBI saves to your browser's local storage automatically, this data can be lost if you clear your browser's data or if your browser profile becomes corrupted.
+        It is <strong>highly recommended</strong> to periodically use the "Export All Boards" feature to create manual backup files of your KANBI data. Store these JSON files in a safe place.</p>
         
-        <h3>Local Storage</h3>
-        <p>Your data is stored in your browser. Clearing browser data will erase your board. Export regularly to avoid data loss. When using multiple browsers or devices, manually export/import to keep your boards in sync.</p>
+        <h3>Local Storage Scope</h3>
+        <p>Your KANBI data stored in local storage is specific to the browser (and user profile within that browser) you are using. Data is not automatically synced between different browsers (e.g., Chrome and Firefox) or different computers. To move data, use the "Export" and "Import" functions.</p>
         
-        <h3>Task Limits</h3>
-        <p>While there's no hard limit on tasks, performance may degrade with hundreds of tasks. Consider archiving completed work regularly by exporting your board, clearing finished tasks, and saving the archive file for reference.</p>
+        <h3>Task & Board Limits</h3>
+        <p>While there's no hard limit on the number of boards, columns, or tasks, extreme numbers (many hundreds of tasks per KANBI board, or very many boards) might affect performance. For very large archives, consider periodically exporting boards containing many archived items and then removing those boards from your active KANBI instance if they are no longer frequently needed.</p>
       </section>
       
-      <!-- Tips Section -->
       <section id="tips" class="help-section">
         <h2>Tips & Tricks</h2>
         
         <div class="tips-list">
           <ul>
-            <li><strong>Use consistent column colors</strong> for better visual organization. For example, use cooler colors for early stages and warmer colors for completion stages.</li>
-            <li><strong>Export your board regularly</strong> as a backup, especially before making significant changes.</li>
-            <li><strong>Keep task descriptions concise</strong> for better readability and overall board performance.</li>
-            <li><strong>Use due dates strategically</strong> to highlight time-sensitive tasks rather than assigning them to everything.</li>
-            <li><strong>Limit work-in-progress</strong> by keeping task counts in middle columns low. This improves focus and completion rates.</li>
-            <li><strong>Create a workflow that matches your process</strong>, not the other way around. Add, remove, or rename columns to fit your needs.</li>
-            <li><strong>Review and clean up your board periodically</strong> to maintain performance and focus on current priorities.</li>
+            <li><strong>Use separate KANBI boards</strong> to manage different projects, contexts (e.g., "Work," "Personal"), or long-term goals.</li>
+            <li><strong>Regularly move tasks from "Done" to the "Archived" column</strong> to keep your active columns clean and focused.</li>
+            <li><strong>Use consistent column colors</strong> within a KANBI board for better visual organization.</li>
+            <li><strong>Regularly use "Export All Boards"</strong> for backups, especially before making significant changes or if relying on KANBI for important data.</li>
+            <li><strong>Keep task descriptions concise</strong> for better readability.</li>
+            <li><strong>Use due dates strategically</strong> to highlight time-sensitive tasks.</li>
+            <li><strong>Limit work-in-progress</strong> by keeping task counts in "In Progress" type columns low.</li>
+            <li><strong>Review and clean up your KANBI boards periodically</strong> to maintain focus and performance.</li>
           </ul>
         </div>
       </section>
       
-      <!-- Creator Section -->
       <section id="about-creator" class="help-section">
-        <h2>About the Creator</h2>
+        <h2>About the Creator & License</h2>
         <p>KANBI was developed by John W. Little. Visit <a href="http://johnwlittle.com" target="_blank">johnwlittle.com</a> for updates or to explore other projects.</p>
-        <p>KANBI is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>, which means you can share and adapt the material for non-commercial purposes, as long as you give appropriate credit.</p>
+        <p>KANBI is licensed under the <a href="https://opensource.org/license/apache-2-0" target="_blank">Apache License 2.0</a>. You may obtain a copy of the License at <a href="https://opensource.org/license/apache-2-0" target="_blank">https://opensource.org/license/apache-2-0</a>.</p>
+        <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
       </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-      KANBI by John W. Little &copy; 2025 • Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>
+      KANBI by John W. Little &copy; 2025 • Licensed under <a href="https://opensource.org/license/apache-2-0" target="_blank">Apache 2.0</a>
     </footer>
-  </div>
 </body>
 </html>
